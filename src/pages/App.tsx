@@ -1,13 +1,16 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./Home";
+import { MenuProvider } from "../context/menu/MenuProvider";
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Home />} />
-      </Routes>
-    </BrowserRouter>
+    <MenuProvider>
+        <BrowserRouter>
+        <Routes>
+            <Route path="/" element={<Home />} />
+        </Routes>
+        </BrowserRouter>
+    </MenuProvider>
   );
 }
 
