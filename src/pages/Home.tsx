@@ -1,5 +1,9 @@
+import DashboardTemplate from "../components/templates/DashboardTemplate";
+
 export default function Home(){
     return <>
-        Home
+        <DashboardTemplate>
+            <div>Home</div>
+        </DashboardTemplate>
     </>
 }
