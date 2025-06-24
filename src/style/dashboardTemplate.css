@@ -1,6 +1,6 @@
 .dashboard-template {
     display: grid;
-    grid-template-columns: 10% 1fr;
+    grid-template-columns: 8% 1fr;
     height: 100vh;
     margin: 0;
     overflow: hidden;
@@ -9,10 +9,11 @@
 .right-content {
     display: grid;
     grid-template-rows: 10% 1fr;
-    padding: 2em 1em;
+    padding: 2em 3em;
     padding-right: 3em;
 }
 
 .contentNav{
+    width: 100%;
     padding: 1.5em;
 }

@@ -47,12 +47,28 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    transition: all .3s ease-in-out;
+}
+.btnNotification:hover{
+    cursor: pointer;
+    scale: 1.1;
+}
+.iconNotification{
+    transition: all .3s ease-in-out;
+}
+.btnNotification:hover > .iconNotification{
+    animation: campana 1s infinite ease-in;
 }
 .btnPerfil{
-    width: 55px;
-    height: 55px;
+    width: 53px;
+    height: 53px;
     border-radius: 50%;
     position: relative;
+    transition: all .3s ease-in-out;
+}
+.btnPerfil:hover{
+    cursor: pointer;
+    scale: 1.1;
 }
 .btnPerfil img{
     position: absolute;
@@ -62,4 +78,10 @@
     height: 100%;
     object-fit: fill;
     border-radius: 50%;
+}
+
+@keyframes campana {
+    0% {transform: rotate(20deg);}
+    50% {transform: rotate(-20deg);}
+    100% {transform: rotate(20deg);}
 }
