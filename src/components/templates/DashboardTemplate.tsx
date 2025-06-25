@@ -1,14 +1,16 @@
 import type React from "react";
 import Nav from "../organisms/Nav";
 import TopBar from "../organisms/TopBar";
+import { useMenu } from "../../hooks/hookMenu";
 
 export default function DashboardTemplate({ children }:{children:React.ReactNode}){
+    const {showMenu} = useMenu()
     return <>
     <div className="dashboard-template">
-        <div className="contentNav">
+        <div style={{paddingLeft: showMenu ? "1.5em" : "0px"}} className="contentNav">
             <Nav />
         </div>
-        <div className="right-content">
+        <div style={{paddingLeft: showMenu ? "3em" : "0px"}} className="right-content">
             <TopBar />
             <div>
                 {children}
