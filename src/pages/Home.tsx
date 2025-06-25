@@ -7,7 +7,7 @@ export default function Home(){
             <div className="home">
                 <Informe/>
                 <div>
-
+                    
                 </div>
             </div>
         </DashboardTemplate>
