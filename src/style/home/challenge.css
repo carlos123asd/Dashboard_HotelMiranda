@@ -1,0 +1,27 @@
+.challenge{
+    width: 50%;
+    padding: 1em;
+    background: #222222;
+    border-radius: 2em;
+}
+.contentTopChallenge{
+    display: flex;
+    justify-content: space-between;
+}
+.contentOpcionesChallenge{
+    position: relative;
+}
+.disablebtn{
+    position: relative;
+}
+.disablebtn::before{
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    opacity: .7;
+    top: 0;
+    left: 0;
+    background: #2C2C2C;
+    width: 100%;
+    height: 100%;
+}

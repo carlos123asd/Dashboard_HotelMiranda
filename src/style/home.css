@@ -1,4 +1,6 @@
-@import url('./informe.css');
+@import url('./home/challenge.css');
+@import url('./home/informe.css');
+@import url('./home/crearMeta.css');
 
 .home{
     width: 100%;
@@ -8,4 +10,9 @@
     overflow-x: hidden;
     overflow-y: auto;
     overflow: visible;
+    gap: 1em;
+}
+.contentInfoDashboardHome{
+    width: 100%;
+    display: flex;
 }

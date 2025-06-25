@@ -1,0 +1,14 @@
+.contentCrearMeta{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 55px;
+    position: absolute;
+    top: -68px;
+    left: -55px;
+    z-index: 0;
+}
+.contentCrearMetaSecond{
+    display: flex;
+    gap: 55px;
+}

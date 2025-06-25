@@ -1,7 +1,8 @@
 import { useMenu } from "../../hooks/hookMenu";
-import BtnNotification from "../atoms/BtnNotification";
+import BtnWithIcon from "../atoms/BtnWithIcon";
 import BtnPerfil from "../atoms/BtnPerfil";
 import InputSearch from "../molecules/InputSearch";
+import { IoMdNotificationsOutline } from "react-icons/io";
 
 export default function TopBar(){
     const {activeMenu} = useMenu()
@@ -10,7 +11,7 @@ export default function TopBar(){
             <h1 className="titulo-topBar">{activeMenu}</h1>
             <div className="contentRight-TopBar">
                 <InputSearch />
-                <BtnNotification />
+                <BtnWithIcon icon={IoMdNotificationsOutline} className="iconNotification" />
                 <BtnPerfil />
             </div>
         </div>
