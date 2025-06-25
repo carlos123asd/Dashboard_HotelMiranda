@@ -2,6 +2,8 @@ import { createContext } from "react";
 
 type MenuContextType = {
   activeMenu: string;
+  showMenu: boolean;
+  setShowMenu: (status: boolean) => void
   setActiveMenu: (menu: string) => void;
 };
 

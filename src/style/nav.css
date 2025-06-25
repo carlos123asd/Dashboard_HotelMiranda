@@ -7,19 +7,59 @@
     align-items: center;
     justify-content: space-evenly;
     gap: 5em;
+    position: relative;
+    transition: all .3s ease-in-out;
 }
 .navIcon{
     width: 80px;
     height: 80px;
 }
 .contentNavIcons{
+    width: 100%;
     display: flex;
     gap: 4em;
     flex-direction: column;
-    align-items: center;
 }
 .btnNav:hover{
     cursor: pointer;
     color: #fff !important;
     transition: all .3s ease-in-out;
+}
+.barItemMenu{
+    width: 100%;
+    text-align: center;
+    border-radius: 3px;
+    position: relative;
+}
+.barSelectedItem{
+    width: 5%;
+    height: 40px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    border-radius: 1em;
+    border-bottom-left-radius: 0px;
+    border-top-left-radius: 0px;
+}
+.showHideBtn{
+    width: 8%;
+    height: 5%;
+    position: absolute;
+    bottom: 45%;
+    right: -8%;
+    background-color: #939393;
+    transition: all .3s ease-in-out;
+    border-radius: 1em;
+    border-bottom-left-radius: 0px;
+    border-top-left-radius: 0px;
+}
+.showHideBtn:hover{
+    cursor:pointer;
+    background-color: #fff;
+}
+.hideMenu{
+    transform: translateX(-100%);
+}
+.showMenu{
+    transform: translateX(0%);
 }
