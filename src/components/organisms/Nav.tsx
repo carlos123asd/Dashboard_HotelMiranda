@@ -5,21 +5,28 @@ import { TbBrandBooking } from "react-icons/tb";
 import { MdOutlineSpeakerNotes } from "react-icons/md";
 import { FaRegBuilding } from "react-icons/fa";
 import { IoExitOutline } from "react-icons/io5";
+import { useMenu } from "../../hooks/hookMenu";
 export default function Nav(){
+    const {activeMenu,setActiveMenu} = useMenu()
     const menu = [
-        <GoHome className="btnNav" size={45} color="#939393"/>,
-        <FaUserTie className="btnNav" size={35} color="#939393"/>,
-        <TbBrandBooking className="btnNav" size={40} color="#939393"/>,
-        <MdOutlineSpeakerNotes className="btnNav" size={35} color="#939393"/>,
-        <FaRegBuilding className="btnNav" size={35} color="#939393"/>,
+        {nombre:"Inicio",icono:<GoHome className="btnNav" size={45} color={activeMenu ===  "Inicio" ? "#fff" : "#939393"}/>},
+        {nombre:"Empleados",icono:<FaUserTie className="btnNav" size={35} color={activeMenu ===  "Empleados" ? "#fff" : "#939393"}/>},
+        {nombre:"Reservas",icono:<TbBrandBooking className="btnNav" size={40} color={activeMenu ===  "Reservas" ? "#fff" : "#939393"}/>},
+        {nombre:"Notas",icono:<MdOutlineSpeakerNotes className="btnNav" size={35} color={activeMenu ===  "Notas" ? "#fff" : "#939393"}/>},
+        {nombre:"Habitaciones",icono:<FaRegBuilding className="btnNav" size={35} color={activeMenu ===  "Habitaciones" ? "#fff" : "#939393"}/>},
     ]
+
+    const handleOnClickMenu = (value:string) => {
+        setActiveMenu(value)
+    }
+
     return <>
         <div className="nav bgSecundary">
             <img className="navIcon" src={react} alt="" />
             <div className="contentNavIcons">
                 {
-                    menu.map((icon) => (
-                        icon
+                    menu.map((icon,index) => (
+                        <div key={index} onClick={() => handleOnClickMenu(icon.nombre)}>{icon.icono}</div>
                     ))
                 }
             </div>
