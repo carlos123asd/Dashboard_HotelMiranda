@@ -1,6 +1,7 @@
 .dashboard-template {
     display: grid;
     grid-template-columns: 8% 1fr;
+    grid-template-rows: 100%;
     height: 100vh;
     margin: 0;
     overflow: hidden;

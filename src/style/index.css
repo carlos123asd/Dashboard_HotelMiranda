@@ -1,6 +1,7 @@
 @import url('./dashboardTemplate.css');
 @import url('./nav.css');
 @import url('./topBar.css');
+@import url('./home.css');
 
 :root {
   --color-text: #fff;
