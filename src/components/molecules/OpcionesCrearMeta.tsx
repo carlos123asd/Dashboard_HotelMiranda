@@ -4,12 +4,26 @@ import { MdBedroomParent } from "react-icons/md";
 import { RiMoneyEuroBoxFill } from "react-icons/ri";
 
 export default function OpcionesCrearMeta({show}:{show:boolean}){
+
+    const handleAddMeta = (value:string) => {
+        const metasActuales = JSON.parse(localStorage.getItem("metas") || "[]")
+        const nuevasMetas = [
+            ...metasActuales,
+            {
+                tipo: value,
+                inicial: 0,
+                meta: 0,
+            }
+        ]
+        localStorage.setItem("metas",JSON.stringify(nuevasMetas))
+    }
+
     return <>
         <div style={{display: show ? "flex" : "none"}} className="contentCrearMeta">
-              <BtnWithIcon icon={BsPersonBadgeFill} disable={true} />
+            <div onClick={() => handleAddMeta("empleados")}><BtnWithIcon icon={BsPersonBadgeFill} disable={true} /></div>
             <div className="contentCrearMetaSecond">
-                <BtnWithIcon icon={MdBedroomParent} disable={true} />
-                <BtnWithIcon icon={RiMoneyEuroBoxFill} disable={true} />
+                <div onClick={() => handleAddMeta("ocupacion")}><BtnWithIcon icon={MdBedroomParent} disable={true} /></div>
+                <div onClick={() => handleAddMeta("ganancias")}><BtnWithIcon icon={RiMoneyEuroBoxFill} disable={true} /></div>
             </div>
         </div>
     </>
