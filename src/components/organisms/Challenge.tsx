@@ -7,7 +7,7 @@ import { BsPersonBadgeFill } from "react-icons/bs";
 import { MdBedroomParent } from "react-icons/md";
 import { RiMoneyEuroBoxFill } from "react-icons/ri";
 
-type tiposChallenge = "empleados" | "ocupacion" | "ganancias"
+type tiposChallenge = "Empleados" | "Ocupaciones" | "Ganancias"
 type tipoMeta = {
     tipo: string,
     inicial: number,
@@ -22,9 +22,9 @@ export default function Challenge(){
 
     const iconChallenge = (value:tiposChallenge) => {
         switch(value){
-            case "empleados": return BsPersonBadgeFill
-            case "ganancias": return RiMoneyEuroBoxFill
-            case "ocupacion": return MdBedroomParent
+            case "Empleados": return BsPersonBadgeFill
+            case "Ganancias": return RiMoneyEuroBoxFill
+            case "Ocupaciones": return MdBedroomParent
             default: throw new Error ("Valor icon invalido")
         }
     }
@@ -42,13 +42,13 @@ export default function Challenge(){
                 onClick={() => setShowOptions((prevStatus) => !prevStatus)} className="contentOpcionesChallenge">
                     <BtnWithIcon icon={IoMdAdd} />
                     <OpcionesCrearMeta show={showOptions} />
-                    {
-                        metas.map((meta:tipoMeta, idx: number) => (
-                            <CardChallenge key={idx} icon={iconChallenge(meta.tipo as tiposChallenge)} nombre={meta.tipo} meta={meta.meta} inicial={meta.inicial} />
-                        ))
-                    }
                 </div>
             </div>
+            {
+                metas.map((meta:tipoMeta, idx: number) => (
+                    <CardChallenge key={idx} icon={iconChallenge(meta.tipo as tiposChallenge)} nombre={meta.tipo} meta={meta.meta} inicial={meta.inicial} />
+                ))
+            }
         </div>
     </>
 }

@@ -20,10 +20,10 @@ export default function OpcionesCrearMeta({show}:{show:boolean}){
 
     return <>
         <div style={{display: show ? "flex" : "none"}} className="contentCrearMeta">
-            <div onClick={() => handleAddMeta("empleados")}><BtnWithIcon icon={BsPersonBadgeFill} disable={true} /></div>
+            <div onClick={() => handleAddMeta("Empleados")}><BtnWithIcon icon={BsPersonBadgeFill} disable={true} /></div>
             <div className="contentCrearMetaSecond">
-                <div onClick={() => handleAddMeta("ocupacion")}><BtnWithIcon icon={MdBedroomParent} disable={true} /></div>
-                <div onClick={() => handleAddMeta("ganancias")}><BtnWithIcon icon={RiMoneyEuroBoxFill} disable={true} /></div>
+                <div onClick={() => handleAddMeta("Ocupaciones")}><BtnWithIcon icon={MdBedroomParent} disable={true} /></div>
+                <div onClick={() => handleAddMeta("Ganancias")}><BtnWithIcon icon={RiMoneyEuroBoxFill} disable={true} /></div>
             </div>
         </div>
     </>

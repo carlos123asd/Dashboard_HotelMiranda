@@ -3,10 +3,14 @@
     padding: 1em;
     background: #222222;
     border-radius: 2em;
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
 }
 .contentTopChallenge{
     display: flex;
     justify-content: space-between;
+    margin-bottom: 1em;
 }
 .contentOpcionesChallenge{
     position: relative;
@@ -24,4 +28,49 @@
     background: #2C2C2C;
     width: 100%;
     height: 100%;
+}
+.cardChallenge{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #313131;
+    padding: 1em;
+    border-radius: 1em;
+}
+.contentIconChallenge{
+    width: max-content;
+    background: #1A1A1A;
+    border-radius: 1em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1.5em;
+}
+.contentInfoChallenge{
+    width: 90%;
+    display: flex;
+    align-items: center;
+    gap: 1em;
+}
+.contentInitMeta{
+    display: flex;
+    gap: .2em;
+}
+.info{
+    width: 45%;
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+.contentMainInfo{
+    width: 80%;
+    display: flex;
+    align-items:flex-end;
+    gap: 2em;
+}
+.tagChallenge{
+    width: 15% !important;
+    text-align: center;
+    padding: 1em 0 !important;
+    font-size: .8rem;
 }
