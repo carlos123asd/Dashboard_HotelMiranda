@@ -21,4 +21,5 @@
 }
 .contentTemplate{
     overflow-y: auto;
+    overflow: visible;
 }

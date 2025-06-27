@@ -1,7 +1,8 @@
-@import url('./dashboardTemplate.css');
-@import url('./nav.css');
-@import url('./topBar.css');
+@import url('./template/dashboardTemplate.css');
+@import url('./template/nav.css');
+@import url('./template/topBar.css');
 @import url('./home.css');
+@import url('./empleados.css');
 
 :root {
   --color-text: #fff;
