@@ -6,15 +6,17 @@ import { MdOutlineSpeakerNotes } from "react-icons/md";
 import { FaRegBuilding } from "react-icons/fa";
 import { IoExitOutline } from "react-icons/io5";
 import { useMenu } from "../../hooks/hookMenu";
+import { useNavigate } from "react-router-dom";
 export default function Nav(){
     const {activeMenu,setActiveMenu} = useMenu()
     const {showMenu,setShowMenu} = useMenu()
+    const navigate = useNavigate()
     const menu = [
-        {nombre:"Inicio",icono:<GoHome className="btnNav" size={45} color={activeMenu ===  "Inicio" ? "#fff" : "#939393"}/>},
-        {nombre:"Empleados",icono:<FaUserTie className="btnNav" size={35} color={activeMenu ===  "Empleados" ? "#fff" : "#939393"}/>},
-        {nombre:"Reservas",icono:<TbBrandBooking className="btnNav" size={40} color={activeMenu ===  "Reservas" ? "#fff" : "#939393"}/>},
-        {nombre:"Notas",icono:<MdOutlineSpeakerNotes className="btnNav" size={35} color={activeMenu ===  "Notas" ? "#fff" : "#939393"}/>},
-        {nombre:"Habitaciones",icono:<FaRegBuilding className="btnNav" size={35} color={activeMenu ===  "Habitaciones" ? "#fff" : "#939393"}/>},
+        {nombre:"Inicio",icono:<GoHome onClick={() => navigate("/")} className="btnNav" size={45} color={activeMenu ===  "Inicio" ? "#fff" : "#939393"}/>},
+        {nombre:"Empleados",icono:<FaUserTie onClick={() => navigate("/empleados")} className="btnNav" size={35} color={activeMenu ===  "Empleados" ? "#fff" : "#939393"}/>},
+        {nombre:"Reservas",icono:<TbBrandBooking onClick={() => navigate("/reservas")} className="btnNav" size={40} color={activeMenu ===  "Reservas" ? "#fff" : "#939393"}/>},
+        {nombre:"Notas",icono:<MdOutlineSpeakerNotes onClick={() => navigate("/notas")} className="btnNav" size={35} color={activeMenu ===  "Notas" ? "#fff" : "#939393"}/>},
+        {nombre:"Habitaciones",icono:<FaRegBuilding onClick={() => navigate("/habitaciones")} className="btnNav" size={35} color={activeMenu ===  "Habitaciones" ? "#fff" : "#939393"}/>},
     ]
 
     const handleOnClickMenu = (value:string) => {
