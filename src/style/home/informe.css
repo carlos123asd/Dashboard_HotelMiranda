@@ -1,5 +1,4 @@
 .informe{
-    width: 100%;
     height: 50%;
     position: relative;
     border-radius: 2em;
@@ -7,7 +6,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    padding-left: 2em;
+    padding: 2em;
 }
 .informe::before{
     content: '';

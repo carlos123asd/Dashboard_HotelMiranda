@@ -18,7 +18,7 @@ export default function CardChallenge({
         <div className="cardChallenge">
             <div className="contentInfoChallenge">
                 <div className="contentIconChallenge">
-                    <Icon />
+                    <Icon size={30} />
                 </div>
                 <div className="contentMainInfo">
                     <div className="info">

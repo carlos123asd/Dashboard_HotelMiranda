@@ -12,7 +12,7 @@ export default function DashboardTemplate({ children }:{children:React.ReactNode
         </div>
         <div style={{paddingLeft: showMenu ? "3em" : "0px"}} className="right-content">
             <TopBar />
-            <div>
+            <div className="contentTemplate">
                 {children}
             </div>
         </div>

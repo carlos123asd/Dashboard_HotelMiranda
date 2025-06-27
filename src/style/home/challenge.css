@@ -37,6 +37,9 @@
     padding: 1em;
     border-radius: 1em;
 }
+.cardChallenge:hover{
+    background: linear-gradient(to right, #AB9FED, #B5E5C6);
+}
 .contentIconChallenge{
     width: max-content;
     background: #1A1A1A;
@@ -55,6 +58,7 @@
 .contentInitMeta{
     display: flex;
     gap: .2em;
+    align-items: center;
 }
 .info{
     width: 45%;

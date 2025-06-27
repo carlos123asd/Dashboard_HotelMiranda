@@ -32,3 +32,15 @@ body {
 .bgSecundary{
   background-color: var(--color-bg-body-secundary);
 }
+.custom-cursor{
+  position: fixed;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 3px solid white;
+  box-shadow: 0 0 10px 1px white;
+  transition: all .15s  ease;
+  z-index: 1000;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+}
