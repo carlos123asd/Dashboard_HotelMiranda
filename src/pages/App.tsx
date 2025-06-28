@@ -6,22 +6,26 @@ import Reservas from "./Reservas";
 import Notas from "./Notas";
 import Habitaciones from "./Habitaciones";
 import { MenuTableProvider } from "../context/menuTable/MenuTableProvider";
+import { Provider } from "react-redux";
+import { store } from "../features/store/store";
 
 function App() {
   return (
-    <MenuProvider>
-      <MenuTableProvider>
-        <BrowserRouter>
-          <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/empleados" element={<Empleados />} />
-              <Route path="/reservas" element={<Reservas />} />
-              <Route path="/notas" element={<Notas />} />
-              <Route path="/habitaciones" element={<Habitaciones />} />
-          </Routes>
-        </BrowserRouter>
-      </MenuTableProvider>
-    </MenuProvider>
+    <Provider store={store}>
+      <MenuProvider>
+        <MenuTableProvider>
+          <BrowserRouter>
+            <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/empleados" element={<Empleados />} />
+                <Route path="/reservas" element={<Reservas />} />
+                <Route path="/notas" element={<Notas />} />
+                <Route path="/habitaciones" element={<Habitaciones />} />
+            </Routes>
+          </BrowserRouter>
+        </MenuTableProvider>
+      </MenuProvider>
+    </Provider>
   );
 }
 

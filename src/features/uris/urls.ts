@@ -1,0 +1,1 @@
+export const urlGetEmpleado = "http://localhost:3000/empleado/"
