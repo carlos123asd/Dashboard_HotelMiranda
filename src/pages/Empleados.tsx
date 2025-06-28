@@ -12,6 +12,7 @@ export default function Empleados(){
     ]
 
     const menuEmpleado = ["Todos","Activo","Inactivo","Suspendido"]
+    const headerEmpleado = ["Nombre","Responsabilidades","Fecha de Inicio","Contacto","Estado"]
     return <>
         <DashboardTemplate>
             <div className="contentTopEmpleado">
@@ -22,7 +23,7 @@ export default function Empleados(){
                 </div>
             </div>
             <StatusTable status={statusEmpleado} />
-            <Table menu={menuEmpleado} />
+            <Table menu={menuEmpleado} headers={headerEmpleado} />
         </DashboardTemplate>
     </>
 }

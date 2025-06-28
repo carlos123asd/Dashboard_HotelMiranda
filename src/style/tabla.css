@@ -1,3 +1,7 @@
+.table{
+    width: 100%;
+    background: #2C2C2C;
+}
 .MenuTabla{
     display: flex;
 }
@@ -8,4 +12,71 @@
 .tagMenuTable:hover{
     cursor: pointer;
     color: #fff;
+}
+.headerTable{
+    background: #222222;
+    padding: 1em 2em;
+}
+.photoPerfil{
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+    object-fit: cover;
+    object-position: center;
+}
+.contentCelda{
+    display: flex;
+    align-items: center;
+    gap: 1em;
+}
+.checkboxTable{
+   display: block;
+   margin: 0 auto;
+}
+td{
+    text-align: center;
+    padding: 0 auto;
+}
+.tagStatusEmpleadoTable{
+    background: #52B447;
+    border-radius: 1em;
+    padding: .5em 0;
+}
+.tdActions{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1em;
+}
+.tdActions:hover{
+    cursor: pointer;
+}
+.pd-1{
+    padding: 0 1em;
+}
+.footerTable{
+    background: #222222;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: .5em 1em;
+}
+.infoFooter{
+    color: #616161;
+}
+.pagination{
+    display: flex;
+    align-items: center;
+    gap: 1em;
+}
+.btnPagination{
+    display: flex;
+    align-items: center;
+    border: 1px solid #313131;
+    background: #1A1A1A;
+    border-radius: 10px;
+    padding: 1em;
+}
+.btnPagination:hover{
+    cursor: pointer;
 }
