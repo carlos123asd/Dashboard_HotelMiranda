@@ -1,0 +1,11 @@
+.MenuTabla{
+    display: flex;
+}
+.tagMenuTable{
+    padding: 1em;
+    color: #939393;
+}
+.tagMenuTable:hover{
+    cursor: pointer;
+    color: #fff;
+}

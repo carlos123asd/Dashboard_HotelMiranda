@@ -53,6 +53,10 @@
     border-radius: 1em;
     padding: 1em;
     border: 1px solid #313131;
+    margin-top: 1em;
+}
+.cardStatusTable:hover{
+    background: linear-gradient(to right, #AB9FED, #B5E5C6);
 }
 .countStatusTable{
     font-weight: bold;

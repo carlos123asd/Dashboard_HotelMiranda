@@ -6,22 +6,18 @@ import { MdOutlineSpeakerNotes } from "react-icons/md";
 import { FaRegBuilding } from "react-icons/fa";
 import { IoExitOutline } from "react-icons/io5";
 import { useMenu } from "../../hooks/hookMenu";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 export default function Nav(){
-    const {activeMenu,setActiveMenu} = useMenu()
     const {showMenu,setShowMenu} = useMenu()
     const navigate = useNavigate()
+    const location = useLocation()
     const menu = [
-        {nombre:"Inicio",icono:<GoHome onClick={() => navigate("/")} className="btnNav" size={45} color={activeMenu ===  "Inicio" ? "#fff" : "#939393"}/>},
-        {nombre:"Empleados",icono:<FaUserTie onClick={() => navigate("/empleados")} className="btnNav" size={35} color={activeMenu ===  "Empleados" ? "#fff" : "#939393"}/>},
-        {nombre:"Reservas",icono:<TbBrandBooking onClick={() => navigate("/reservas")} className="btnNav" size={40} color={activeMenu ===  "Reservas" ? "#fff" : "#939393"}/>},
-        {nombre:"Notas",icono:<MdOutlineSpeakerNotes onClick={() => navigate("/notas")} className="btnNav" size={35} color={activeMenu ===  "Notas" ? "#fff" : "#939393"}/>},
-        {nombre:"Habitaciones",icono:<FaRegBuilding onClick={() => navigate("/habitaciones")} className="btnNav" size={35} color={activeMenu ===  "Habitaciones" ? "#fff" : "#939393"}/>},
+        {nombre:"/",icono:<GoHome onClick={() => navigate("/")} className="btnNav" size={45} color={location.pathname ===  "/" ? "#fff" : "#939393"}/>},
+        {nombre:"/empleados",icono:<FaUserTie onClick={() => navigate("/empleados")} className="btnNav" size={35} color={location.pathname ===  "/empleados" ? "#fff" : "#939393"}/>},
+        {nombre:"/reservas",icono:<TbBrandBooking onClick={() => navigate("/reservas")} className="btnNav" size={40} color={location.pathname ===  "/reservas" ? "#fff" : "#939393"}/>},
+        {nombre:"/notas",icono:<MdOutlineSpeakerNotes onClick={() => navigate("/notas")} className="btnNav" size={35} color={location.pathname ===  "/notas" ? "#fff" : "#939393"}/>},
+        {nombre:"/habitaciones",icono:<FaRegBuilding onClick={() => navigate("/habitaciones")} className="btnNav" size={35} color={location.pathname ===  "/habitaciones" ? "#fff" : "#939393"}/>},
     ]
-
-    const handleOnClickMenu = (value:string) => {
-        setActiveMenu(value)
-    }
 
     const handleShowHideMenu = () => {
         setShowMenu(!showMenu)
@@ -33,8 +29,8 @@ export default function Nav(){
             <div className="contentNavIcons">
                 {
                     menu.map((icon,index) => (
-                        <div className="barItemMenu" key={index} onClick={() => handleOnClickMenu(icon.nombre)}>
-                            <span style={{background: activeMenu === icon.nombre ? "white" : "none"}} className="barSelectedItem"></span>
+                        <div className="barItemMenu" key={index}>
+                            <span style={{background: location.pathname === icon.nombre ? "white" : "none"}} className="barSelectedItem"></span>
                             {icon.icono}
                         </div>
                     ))
