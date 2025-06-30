@@ -4,6 +4,7 @@ import type { empleado } from "../../types/Empleado.type";
 import TBodyEmpleados from "../molecules/TBodyEmpleados";
 import { useLocation } from "react-router-dom";
 import { useState } from "react";
+import THeadEmpleado from "../molecules/THeadEmpleado";
 
 export default function Table({menu,headers,docs}:{menu:Array<string>,headers:Array<string>,docs:Array<empleado>}){
     const location = useLocation();
@@ -31,9 +32,7 @@ export default function Table({menu,headers,docs}:{menu:Array<string>,headers:Ar
                     <tr>
                         <th className="headerTable"><input type="checkbox" name="" id="" /></th>
                         {
-                            headers.map((header,index) => (
-                                <th key={index} className="headerTable">{header}</th>
-                            ))
+                            location.pathname === '/empleados' && <THeadEmpleado headers={headers}/>
                         }
                         <th className="headerTable">Acciones</th>
                     </tr>
