@@ -26,11 +26,11 @@ export default function TBodyEmpleados({docs,actual}:{docs:Array<empleado>,actua
                         {registro.rol.permisos[0].descripcion}
                     </td>
                     <td className="pd-1">
-                        {registro.startDate}
+                        {registro.startDate.split('T')[0].split('-').reverse().join('-')}
                     </td>
                     <td className="pd-1">
-                        <BsTelephoneFill />
-                        <span style={{marginLeft:"1em"}}>{registro.telefono}</span>
+                        <BsTelephoneFill style={{display:'inline-block'}} />
+                        <span style={{display:'inline-block',marginLeft:"1em"}}>{registro.telefono}</span>
                     </td>
                     <td>
                         <div className={`tagStatusEmpleadoTable ${handleStatusStyle(registro.status)}`}>{registro.status}</div>

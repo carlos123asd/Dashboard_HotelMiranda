@@ -24,17 +24,17 @@ export default function THeadEmpleado({headers}:{headers:Array<string>}){
             header === 'Nombre' ? (
                 <th key={index} className="headerTable">
                     {header}
-                    <div onClick={() => handleFilter(header)}>{filterNombre ? <RiSortAlphabetAsc size={20} /> : <RiSortAlphabetDesc size={20} />}</div>
+                    <div style={{display:'inline-block'}} className="headerTableIcon" onClick={() => handleFilter(header)}>{filterNombre ? <RiSortAlphabetAsc size={20} /> : <RiSortAlphabetDesc size={20} />}</div>
                 </th>
             ) : header === 'Fecha de Inicio' ? (
                 <th key={index} className="headerTable">
                     {header}
-                    <div onClick={() => handleFilter(header)}>{filterFecha ? <RiSortNumberAsc size={20} /> : <RiSortNumberDesc size={20} />}</div>
+                    <div style={{display:'inline-block'}} className="headerTableIcon" onClick={() => handleFilter(header)}>{filterFecha ? <RiSortNumberAsc size={20} /> : <RiSortNumberDesc size={20} />}</div>
                 </th>
             ) : header === 'Estado' ? 
                 <th key={index} className="headerTable">
                     {header}
-                    <div onClick={() => handleFilter(header)}>{filterEstado ? <RiSortAlphabetAsc size={20} /> : <RiSortAlphabetDesc size={20} />}</div>
+                    <div style={{display:'inline-block'}} className="headerTableIcon" onClick={() => handleFilter(header)}>{filterEstado ? <RiSortAlphabetAsc size={20} /> : <RiSortAlphabetDesc size={20} />}</div>
                 </th>
             :   <th key={index} className="headerTable">
                     {header}
