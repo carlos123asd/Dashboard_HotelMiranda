@@ -1,4 +1,4 @@
-export default function CardStatusTable({grado,nombre,cantidad}:{grado:number,nombre:string,cantidad:string}){
+export default function CardStatusTable({grado,nombre,cantidad}:{grado:number,nombre:string,cantidad:number}){
     
     const handleColorStatus = (value:number) => {
         switch(value){

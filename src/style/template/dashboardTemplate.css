@@ -20,6 +20,6 @@
     padding: 1.5em;
 }
 .contentTemplate{
-    overflow-y: auto;
-    overflow: visible;
+    padding: 0 1em;
+    overflow-y: scroll;
 }

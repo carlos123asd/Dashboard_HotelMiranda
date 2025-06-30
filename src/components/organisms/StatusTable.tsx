@@ -1,6 +1,6 @@
 import CardStatusTable from "../molecules/CardStatusTable"
 
-export default function StatusTable({status}:{status:Array<{nombre:string,grado:number,cantidad:string}>}){
+export default function StatusTable({status}:{status:Array<{nombre:string,grado:number,cantidad:number}>}){
    
     return <>
         <div className="statusTable">

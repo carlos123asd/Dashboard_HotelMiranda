@@ -9,15 +9,16 @@ import type { AppDispatch } from "../features/store/store";
 import { getDocsTable } from "../features/thunks/getDocsTable";
 import type { RootState } from "../features/store/store";
 import { urlGetEmpleado } from "../features/uris/urls";
+import type { empleado } from "../types/Empleado.type";
 
 export default function Empleados(){
     const [docs,setDocs] = useState([])
     const dispatch = useDispatch<AppDispatch>()
     const {data,status} = useSelector((state: RootState) => state.documentos)
      const statusEmpleado = [
-        {nombre:"Activo",grado:2,cantidad:"200"},
-        {nombre:"Inactivo",grado:1,cantidad:"20"},
-        {nombre:"Suspendido",grado:3,cantidad:"3"},
+        {nombre:"Activo",grado:2,cantidad:docs.filter((doc:empleado) => doc.status === 'activo').length},
+        {nombre:"Inactivo",grado:1,cantidad:docs.filter((doc:empleado) => doc.status === 'inactivo').length},
+        {nombre:"Suspendido",grado:3,cantidad:docs.filter((doc:empleado) => doc.status === 'suspendido').length},
     ]
 
     const menuEmpleado = ["Todos","Activo","Inactivo","Suspendido"]

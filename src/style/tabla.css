@@ -28,6 +28,7 @@
     display: flex;
     align-items: center;
     gap: 1em;
+    padding: 1em !important;
 }
 .checkboxTable{
    display: block;
@@ -38,9 +39,17 @@ td{
     padding: 0 auto;
 }
 .tagStatusEmpleadoTable{
-    background: #52B447;
     border-radius: 1em;
     padding: .5em 0;
+}
+.statusEmpleadoActivo{
+    background: #52B447;
+}
+.statusEmpleadoInactivo{
+    background: #EA5055;
+}
+.statusEmpleadoSuspendido{
+    background: #E68525;
 }
 .tdActions{
     display: flex;
@@ -73,9 +82,19 @@ td{
     display: flex;
     align-items: center;
     border: 1px solid #313131;
-    background: #1A1A1A;
     border-radius: 10px;
     padding: 1em;
+}
+.btnPaginationActive{
+    color: #fff;
+    background: #1A1A1A;
+}
+.btnPaginationInactive{
+    color: #B0B0B0;
+    background: #2C2C2C;
+}
+.btnPaginationInactive:hover{
+    cursor: not-allowed !important;
 }
 .btnPagination:hover{
     cursor: pointer;

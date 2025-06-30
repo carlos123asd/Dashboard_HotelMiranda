@@ -1,10 +1,28 @@
 import MenuTabla from "../molecules/MenuTabla";
-import photo from "../../assets/perfil.jpg"
-import { BsTelephoneFill } from "react-icons/bs";
-import ActionsTable from "../molecules/ActionsTable";
 import FooterTable from "../molecules/FooterTable";
+import type { empleado } from "../../types/Empleado.type";
+import TBodyEmpleados from "../molecules/TBodyEmpleados";
+import { useLocation } from "react-router-dom";
+import { useState } from "react";
 
-export default function Table({menu,headers,docs}:{menu:Array<string>,headers:Array<string>,docs:Array<object>}){
+export default function Table({menu,headers,docs}:{menu:Array<string>,headers:Array<string>,docs:Array<empleado>}){
+    const location = useLocation();
+    const [actual,setActual] = useState<number>(10)
+
+    const handleSetActual = (siguiente:boolean) => {
+        if(siguiente){
+            setActual((prevStatus:number) => {
+                prevStatus += 10
+                return prevStatus
+            })
+        }else{
+            setActual((prevStatus:number) => {
+                prevStatus -= 10
+                return prevStatus
+            })
+        }
+    }
+
     return <>
         <div>
             <MenuTabla menu={menu} />
@@ -20,33 +38,11 @@ export default function Table({menu,headers,docs}:{menu:Array<string>,headers:Ar
                         <th className="headerTable">Acciones</th>
                     </tr>
                 </thead>
-                <tbody> 
-                    <tr>
-                        <td><input className="checkboxTable" type="checkbox" name="" id="" /></td>
-                        <td className="contentCelda pd-1">
-                            <img className="photoPerfil" src={photo} alt="" />
-                            <span>Carlos Medina</span>
-                        </td>
-                        <td className="pd-1">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        </td>
-                        <td className="pd-1">
-                            17 Dec 2024
-                        </td>
-                        <td className="pd-1">
-                            <BsTelephoneFill />
-                            <span style={{marginLeft:"1em"}}>616348947</span>
-                        </td>
-                        <td>
-                            <div className="tagStatusEmpleadoTable">Activo</div>
-                        </td>
-                        <td>
-                            <ActionsTable />
-                        </td>
-                    </tr>
-                </tbody>
+                {
+                   location.pathname === '/empleados' && <TBodyEmpleados docs={docs} actual={actual}/>
+                }
             </table>
-            <FooterTable />
+            <FooterTable actual={actual} setActual={handleSetActual} total={docs.length}/>
         </div>
     </>
 }
