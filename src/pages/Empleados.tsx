@@ -10,19 +10,31 @@ import { getDocsTable } from "../features/thunks/getDocsTable";
 import type { RootState } from "../features/store/store";
 import { urlGetEmpleado } from "../features/uris/urls";
 import type { empleado } from "../types/Empleado.type";
+import { useMenuTable } from "../hooks/hookMenuTable";
 
 export default function Empleados(){
-    const [docs,setDocs] = useState([])
+    const [docs,setDocs] = useState<empleado[]>([])
+    const {menuActive} = useMenuTable()
     const dispatch = useDispatch<AppDispatch>()
     const {data,status} = useSelector((state: RootState) => state.documentos)
      const statusEmpleado = [
-        {nombre:"Activo",grado:2,cantidad:docs.filter((doc:empleado) => doc.status === 'activo').length},
-        {nombre:"Inactivo",grado:1,cantidad:docs.filter((doc:empleado) => doc.status === 'inactivo').length},
-        {nombre:"Suspendido",grado:3,cantidad:docs.filter((doc:empleado) => doc.status === 'suspendido').length},
+        {nombre:"Activo",grado:2,cantidad:data.filter((doc:empleado) => doc.status === 'activo').length},
+        {nombre:"Inactivo",grado:1,cantidad:data.filter((doc:empleado) => doc.status === 'inactivo').length},
+        {nombre:"Suspendido",grado:3,cantidad:data.filter((doc:empleado) => doc.status === 'suspendido').length},
     ]
-
+    
     const menuEmpleado = ["Todos","Activo","Inactivo","Suspendido"]
     const headerEmpleado = ["Nombre","Responsabilidades","Fecha de Inicio","Contacto","Estado"]
+
+    const handleFilterMenu = (value:string) => {
+        switch(value){
+            case 'Todos': setDocs(data);break;
+            case 'Activo': setDocs(data.filter((doc:empleado) => doc.status === 'activo'));break;
+            case 'Inactivo': setDocs(data.filter((doc:empleado) => doc.status === 'inactivo'));break;
+            case 'Suspendido': setDocs(data.filter((doc:empleado) => doc.status === 'suspendido'));break;
+            default: throw new Error("Opcion invalida para Menu")
+        }
+    }
 
     useEffect(() => { 
         if(status === "idle"){
@@ -36,6 +48,10 @@ export default function Empleados(){
         }
         
     }, [data, status, dispatch])
+
+    useEffect(() => {
+        handleFilterMenu(menuActive)
+    }, [menuActive])
 
     return <>
         <DashboardTemplate>

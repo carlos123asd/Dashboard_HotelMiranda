@@ -3,7 +3,6 @@ import { BsTelephoneFill } from "react-icons/bs";
 import ActionsTable from "../molecules/ActionsTable";
 
 export default function TBodyEmpleados({docs,actual}:{docs:Array<empleado>,actual:number}){
-    console.log(actual)
     const handleStatusStyle = (value:string) => {
         switch(value){
             case 'activo': return 'statusEmpleadoActivo';
