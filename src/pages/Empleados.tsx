@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import BtnAddDoc from "../components/atoms/BtnAddDoc";
 import BtnExportDoc from "../components/atoms/BtnExportDoc";
 import StatusTable from "../components/organisms/StatusTable";
@@ -32,9 +32,14 @@ export default function Empleados(){
             case 'Activo': setDocs(data.filter((doc:empleado) => doc.status === 'activo'));break;
             case 'Inactivo': setDocs(data.filter((doc:empleado) => doc.status === 'inactivo'));break;
             case 'Suspendido': setDocs(data.filter((doc:empleado) => doc.status === 'suspendido'));break;
+            case 'limpiar': setDocs(data);break;
             default: throw new Error("Opcion invalida para Menu")
         }
     }
+
+    const handleRisortTable = useCallback((docsFilters: empleado[]) => {
+        setDocs(docsFilters);
+    }, [setDocs]);
 
     useEffect(() => { 
         if(status === "idle"){
@@ -63,7 +68,7 @@ export default function Empleados(){
                 </div>
             </div>
             <StatusTable status={statusEmpleado} />
-            <Table menu={menuEmpleado} headers={headerEmpleado} docs={docs}/>
+            <Table menu={menuEmpleado} headers={headerEmpleado} handleRisortTable={handleRisortTable} docs={docs}/>
         </DashboardTemplate>
     </>
 }

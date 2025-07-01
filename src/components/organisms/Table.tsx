@@ -6,7 +6,7 @@ import { useLocation } from "react-router-dom";
 import { useState } from "react";
 import THeadEmpleado from "../molecules/THeadEmpleado";
 
-export default function Table({menu,headers,docs}:{menu:Array<string>,headers:Array<string>,docs:Array<empleado>}){
+export default function Table({menu,headers,handleRisortTable,docs}:{menu:Array<string>,headers:Array<string>,handleRisortTable:(docsFilters:empleado[])=>void,docs:Array<empleado>}){
     const location = useLocation();
     const [actual,setActual] = useState<number>(10)
 
@@ -32,7 +32,7 @@ export default function Table({menu,headers,docs}:{menu:Array<string>,headers:Ar
                     <tr>
                         <th className="headerTable"><input type="checkbox" name="" id="" /></th>
                         {
-                            location.pathname === '/empleados' && <THeadEmpleado headers={headers}/>
+                            location.pathname === '/empleados' && <THeadEmpleado handleRisortTable={handleRisortTable} headers={headers}/>
                         }
                         <th className="headerTable">Acciones</th>
                     </tr>
