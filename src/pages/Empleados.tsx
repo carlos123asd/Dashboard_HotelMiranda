@@ -14,7 +14,7 @@ import { useMenuTable } from "../hooks/hookMenuTable";
 
 export default function Empleados(){
     const [docs,setDocs] = useState<empleado[]>([])
-    const {menuActive} = useMenuTable()
+    const {menuActive,setMenuActive} = useMenuTable()
     const dispatch = useDispatch<AppDispatch>()
     const {data,status} = useSelector((state: RootState) => state.documentos)
      const statusEmpleado = [
@@ -32,7 +32,7 @@ export default function Empleados(){
             case 'Activo': setDocs(data.filter((doc:empleado) => doc.status === 'activo'));break;
             case 'Inactivo': setDocs(data.filter((doc:empleado) => doc.status === 'inactivo'));break;
             case 'Suspendido': setDocs(data.filter((doc:empleado) => doc.status === 'suspendido'));break;
-            case 'limpiar': setDocs(data);break;
+            case 'limpiar': setDocs(data);setMenuActive('Todos');break;
             default: throw new Error("Opcion invalida para Menu")
         }
     }

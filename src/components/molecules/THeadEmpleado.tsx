@@ -4,12 +4,14 @@ import { RiSortAlphabetDesc } from "react-icons/ri";
 import { RiSortNumberAsc } from "react-icons/ri";
 import { RiSortNumberDesc } from "react-icons/ri";
 import type { empleado } from "../../types/Empleado.type";
+import { useMenuTable } from "../../hooks/hookMenuTable";
 
 export default function THeadEmpleado({headers,docs,setDocs}:{headers:Array<string>,docs:empleado[],setDocs:(docsFilters:empleado[])=>void}){
     const [filterNombre,setFilterNombre] = useState<boolean |undefined>(undefined)
     const [filterFecha,setFilterFecha] = useState<boolean |undefined>(undefined)
     const [filterEstado,setFilterEstado] = useState<boolean |undefined>(undefined)
     const [filterDocs,setFilterDocs] = useState<empleado[]>(docs)
+    const {menuActive} = useMenuTable()
 
     const handleFilter = (type: string) => {
     switch(type) {
@@ -19,6 +21,14 @@ export default function THeadEmpleado({headers,docs,setDocs}:{headers:Array<stri
         default: throw new Error("Opción inválida");
     }
     };
+    
+    useEffect(() => {
+        if(menuActive === 'limpiar'){
+            setFilterNombre(undefined)
+            setFilterFecha(undefined)
+            setFilterEstado(undefined)
+        }
+    },[menuActive])
 
     useEffect(() => {
         setFilterDocs(docs);
@@ -62,17 +72,30 @@ export default function THeadEmpleado({headers,docs,setDocs}:{headers:Array<stri
             header === 'Nombre' ? (
                 <th key={index} className="headerTable">
                     {header}
-                    <div style={{display:'inline-block'}} className="headerTableIcon" onClick={() => handleFilter(header)}>{filterNombre ? <RiSortAlphabetAsc size={20} /> : <RiSortAlphabetDesc size={20} />}</div>
+                    <div 
+                    style={{display:'inline-block'}} 
+                    className="headerTableIcon" 
+                    onClick={() => handleFilter(header)}>{
+                        filterNombre ? <RiSortAlphabetAsc size={20} color={filterNombre === undefined ? '#939393' : 'white'} /> 
+                        : <RiSortAlphabetDesc size={20} color={filterNombre === undefined ? '#939393' : 'white'} />}</div>
                 </th>
             ) : header === 'Fecha de Inicio' ? (
                 <th key={index} className="headerTable">
                     {header}
-                    <div style={{display:'inline-block'}} className="headerTableIcon" onClick={() => handleFilter(header)}>{filterFecha ? <RiSortNumberAsc size={20} /> : <RiSortNumberDesc size={20} />}</div>
+                    <div 
+                    style={{display:'inline-block'}} 
+                    className="headerTableIcon" 
+                    onClick={() => handleFilter(header)}>{filterFecha ? <RiSortNumberAsc size={20} color={filterFecha === undefined ? '#939393' : 'white'} /> 
+                    : <RiSortNumberDesc size={20}  color={filterFecha === undefined ? '#939393' : 'white'} />}</div>
                 </th>
             ) : header === 'Estado' ? 
                 <th key={index} className="headerTable">
                     {header}
-                    <div style={{display:'inline-block'}} className="headerTableIcon" onClick={() => handleFilter(header)}>{filterEstado ? <RiSortAlphabetAsc size={20} /> : <RiSortAlphabetDesc size={20} />}</div>
+                    <div 
+                    style={{display:'inline-block'}} 
+                    className="headerTableIcon" 
+                    onClick={() => handleFilter(header)}>{filterEstado ? <RiSortAlphabetAsc size={20} color={filterEstado === undefined ? '#939393' : 'white'} /> :
+                     <RiSortAlphabetDesc size={20} color={filterEstado === undefined ? '#939393' : 'white'} />}</div>
                 </th>
             :   <th key={index} className="headerTable">
                     {header}
