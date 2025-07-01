@@ -4,78 +4,57 @@ import { RiSortAlphabetDesc } from "react-icons/ri";
 import { RiSortNumberAsc } from "react-icons/ri";
 import { RiSortNumberDesc } from "react-icons/ri";
 import type { empleado } from "../../types/Empleado.type";
-import type { RootState } from "../../features/store/store";
-import { useSelector } from "react-redux";
 
-export default function THeadEmpleado({headers,handleRisortTable}:{headers:Array<string>,handleRisortTable:(docsFilters:empleado[])=>void}){
-    const [filterNombre,setFilterNombre] = useState(false)
-    const [filterFecha,setFilterFecha] = useState(false)
-    const [filterEstado,setFilterEstado] = useState(false)
-    const {data} = useSelector((state: RootState) => state.documentos)
+export default function THeadEmpleado({headers,docs,setDocs}:{headers:Array<string>,docs:empleado[],setDocs:(docsFilters:empleado[])=>void}){
+    const [filterNombre,setFilterNombre] = useState<boolean |undefined>(undefined)
+    const [filterFecha,setFilterFecha] = useState<boolean |undefined>(undefined)
+    const [filterEstado,setFilterEstado] = useState<boolean |undefined>(undefined)
+    const [filterDocs,setFilterDocs] = useState<empleado[]>(docs)
 
-    const handleFilter = (type:string) => {
-        switch(type){
-            case 'Nombre': setFilterNombre(prevStatus => !prevStatus);break;
-            case 'Fecha de Inicio': setFilterFecha(prevStatus => !prevStatus);break;
-            case 'Estado': setFilterEstado(prevStatus => !prevStatus);break;
-            default: throw new Error("Opcion Invalida de Filtro en Tabla Empleado")
-        }
+    const handleFilter = (type: string) => {
+    switch(type) {
+        case 'Nombre': setFilterNombre(prev => prev === undefined ? true : !prev); break;
+        case 'Fecha de Inicio': setFilterFecha(prev => prev === undefined ? true : !prev); break;
+        case 'Estado': setFilterEstado(prev => prev === undefined ? true : !prev); break;
+        default: throw new Error("Opción inválida");
     }
+    };
 
     useEffect(() => {
-        if (!data) return;
+        setFilterDocs(docs);
+    }, [docs]);
+    
+    useEffect(() => {
+        if (!docs) return;
 
-        let sortedData = [...data];
+        const filteredData = [...filterDocs];
 
-
-        if(filterNombre && filterNombre !== undefined){
-            sortedData = (sortedData.sort((a:empleado,b:empleado) => {
-                const cmpNombre = a.nombre.normalize('NFD').replace(/[\u0300-\u036f]/g, "").toLowerCase()
-                    .localeCompare(
-                        b.nombre.normalize('NFD').replace(/[\u0300-\u036f]/g, "").toLowerCase()
-                    );
-                if (cmpNombre !== 0) return cmpNombre;
-                return 0;
-            }))
-        }else if(!filterNombre && filterNombre !== undefined){
-            sortedData = (sortedData.sort((a:empleado,b:empleado) => {
-                const cmpNombre = a.nombre.normalize('NFD').replace(/[\u0300-\u036f]/g, "").toLowerCase()
-                    .localeCompare(
-                        b.nombre.normalize('NFD').replace(/[\u0300-\u036f]/g, "").toLowerCase()
-                    );
-                if (cmpNombre !== 0) return -cmpNombre;
-                return 0;
-            }))
+        if (filterNombre !== undefined) {
+            filteredData.sort((a, b) => {
+            const comp = a.nombre.normalize('NFD').replace(/[\u0300-\u036f]/g, "").toLowerCase()
+                .localeCompare(b.nombre.normalize('NFD').replace(/[\u0300-\u036f]/g, "").toLowerCase());
+            return filterNombre ? comp : -comp;
+            });
         }
 
-        if(filterFecha && filterFecha !== undefined){
-            sortedData = (sortedData.sort((a:empleado,b:empleado) => 
-                new Date(a.startDate).getTime() - new Date(b.startDate).getTime()
-            ))
-        }else if(!filterFecha && filterFecha !== undefined){
-            sortedData = (sortedData.sort((a:empleado,b:empleado) => 
-                 new Date(b.startDate).getTime() - new Date(a.startDate).getTime()
-            ))
+        if (filterFecha !== undefined) {
+            filteredData.sort((a, b) => {
+            const comp = new Date(a.startDate).getTime() - new Date(b.startDate).getTime();
+            return filterFecha ? comp : -comp;
+            });
         }
 
-        if(filterEstado && filterEstado !== undefined){
-            sortedData = (sortedData.sort((a:empleado,b:empleado) => 
-                a.status.normalize('NFD').replace(/[\u0300-\u036f]/g, "").toLowerCase().localeCompare(
-                    b.status.normalize('NFD').replace(/[\u0300-\u036f]/g, "").toLowerCase()
-                )
-            ))
-        }else if(!filterEstado && filterEstado !== undefined){
-            sortedData = (sortedData.sort((a:empleado,b:empleado) => {
-                const cmpEstado = a.status.normalize('NFD').replace(/[\u0300-\u036f]/g, "").toLowerCase()
-                .localeCompare(
-                    b.status.normalize('NFD').replace(/[\u0300-\u036f]/g, "").toLowerCase()
-                );
-                if (cmpEstado !== 0) return -cmpEstado;
-                return 0;
-            }))
+        if (filterEstado !== undefined) {
+            filteredData.sort((a, b) => {
+            const comp = a.status.normalize('NFD').replace(/[\u0300-\u036f]/g, "").toLowerCase()
+                .localeCompare(b.status.normalize('NFD').replace(/[\u0300-\u036f]/g, "").toLowerCase());
+            return filterEstado ? comp : -comp;
+            });
         }
-        handleRisortTable(sortedData)
-    },[filterNombre,filterFecha,filterEstado,handleRisortTable,data])
+
+        setFilterDocs(filteredData)
+        setDocs(filteredData);
+    }, [filterNombre, filterFecha, filterEstado]);
 
     return <>
     {

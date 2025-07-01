@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import BtnAddDoc from "../components/atoms/BtnAddDoc";
 import BtnExportDoc from "../components/atoms/BtnExportDoc";
 import StatusTable from "../components/organisms/StatusTable";
@@ -37,10 +37,6 @@ export default function Empleados(){
         }
     }
 
-    const handleRisortTable = useCallback((docsFilters: empleado[]) => {
-        setDocs(docsFilters);
-    }, [setDocs]);
-
     useEffect(() => { 
         if(status === "idle"){
             dispatch(getDocsTable(urlGetEmpleado))
@@ -68,7 +64,7 @@ export default function Empleados(){
                 </div>
             </div>
             <StatusTable status={statusEmpleado} />
-            <Table menu={menuEmpleado} headers={headerEmpleado} handleRisortTable={handleRisortTable} docs={docs}/>
+            <Table menu={menuEmpleado} headers={headerEmpleado} setDocs={setDocs} docs={docs}/>
         </DashboardTemplate>
     </>
 }
