@@ -1,11 +1,13 @@
 import type { Action } from "@reduxjs/toolkit";
 import type { ThunkAction } from "@reduxjs/toolkit";
 import { configureStore } from "@reduxjs/toolkit";
-import { DocsSlice } from "../slices/DocsSlice";
+import { DocsEmpleadosSlice } from "../slices/DocsEmpleadosSlice";
+import { DocsReservasSlice } from "../slices/DocsReservasSlice";
 
 export const store = configureStore({
     reducer: {
-        documentos: DocsSlice.reducer
+        empleados: DocsEmpleadosSlice.reducer,
+        reservas: DocsReservasSlice.reducer
     }
 })
 

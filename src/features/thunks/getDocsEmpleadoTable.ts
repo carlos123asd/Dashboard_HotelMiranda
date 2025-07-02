@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-export const getDocsTable = createAsyncThunk('docsList', async (url:string) => {
+export const getDocsEmpleadoTable = createAsyncThunk('docsEmpleadosList', async (url:string) => {
     const response = await fetch(url)
     if(response.ok){
         const json = await response.json()

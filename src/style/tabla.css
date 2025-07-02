@@ -76,6 +76,9 @@ td{
 .statusEmpleadoSuspendido{
     background: #E68525;
 }
+.statusMorado{
+    background: #735DE4;
+}
 .tdActions{
     display: flex;
     justify-content: center;
@@ -130,7 +133,7 @@ td{
     gap: 1em;
     position: absolute;
     bottom: 2%;
-    left: 31%;
+    left: 34%;
     z-index: 500;
     padding: 1em 1.5em;
     border-radius: 1em;

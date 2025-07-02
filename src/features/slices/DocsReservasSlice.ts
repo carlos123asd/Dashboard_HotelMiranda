@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getDocsTable } from "../thunks/getDocsTable";
+import { getDocsReservaTable } from "../thunks/getDocsReservaTable";
 
 type typeListEmpleado = {
     data: [],
@@ -13,22 +13,21 @@ const initialState:typeListEmpleado = {
     error: null
 }
 
-export const DocsSlice = createSlice({
-    name: 'documentos',
+export const DocsReservasSlice = createSlice({
+    name: 'reservas',
     initialState,
     reducers: {
-
     },
     extraReducers: (builder) => {
         builder
-        .addCase(getDocsTable.pending, (state) => {
+        .addCase(getDocsReservaTable.pending, (state) => {
             state.status = 'pending'
         })
-        .addCase(getDocsTable.fulfilled, (state,action) => {
+        .addCase(getDocsReservaTable.fulfilled, (state,action) => {
             state.status = 'fulfilled'
             state.data = action.payload
         })
-        .addCase(getDocsTable.rejected, (state,action) => {
+        .addCase(getDocsReservaTable.rejected, (state,action) => {
             state.status = 'rejected'
             state.error = action.error?.message ?? null
         })

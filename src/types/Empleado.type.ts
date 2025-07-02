@@ -20,6 +20,6 @@ export type empleado = {
   rol: Rol;
   telefono: string;
   status: string;
-  startDate: string; // o Date si lo conviertes
-  permisosExtra: unknown[]; // ajusta si sabes la estructura
+  startDate: string;
+  permisosExtra: unknown[];
 };

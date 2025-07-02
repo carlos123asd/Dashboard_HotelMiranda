@@ -6,7 +6,7 @@ import { RiSortNumberDesc } from "react-icons/ri";
 import type { empleado } from "../../types/Empleado.type";
 import { useMenuTable } from "../../hooks/hookMenuTable";
 
-export default function THeadEmpleado({headers,docs,setDocs}:{headers:Array<string>,docs:empleado[],setDocs:(docsFilters:empleado[])=>void}){
+export default function THeadEmpleado({headers,docs,setDocs}:{headers:Array<string>,docs:empleado[],setDocs:(docsFilters:[])=>void}){
     const [filterNombre,setFilterNombre] = useState<boolean |undefined>(undefined)
     const [filterFecha,setFilterFecha] = useState<boolean |undefined>(undefined)
     const [filterData,setFilterData] = useState<'Nombre' | 'Fecha de Inicio' | undefined>(undefined)
@@ -28,7 +28,7 @@ export default function THeadEmpleado({headers,docs,setDocs}:{headers:Array<stri
     
    useEffect(() => {
     if (!docs) return;
-    const sortedData = [...docs]
+    const sortedData:empleado[] = [...docs]
 
     if (filterNombre !== undefined && filterData === 'Nombre') {
         sortedData.sort((a, b) => {
@@ -45,7 +45,7 @@ export default function THeadEmpleado({headers,docs,setDocs}:{headers:Array<stri
         })
     }
 
-    setDocs(sortedData);
+    setDocs(sortedData as []);
 }, [filterNombre, filterFecha]);
 
 
