@@ -1,8 +1,9 @@
 import type { empleado } from "../../types/Empleado.type";
 import { BsTelephoneFill } from "react-icons/bs";
 import ActionsTable from "../molecules/ActionsTable";
+import CheckBoxTable from "../atoms/CheckBoxTable";
 
-export default function TBodyEmpleados({docs,actual}:{docs:Array<empleado>,actual:number}){
+export default function TBodyEmpleados({docs,actual,checkGlobal,handleCountChecked}:{docs:Array<empleado>,actual:number,checkGlobal:boolean,handleCountChecked:(value:number) => void}){
     const handleStatusStyle = (value:string) => {
         switch(value){
             case 'activo': return 'statusEmpleadoActivo';
@@ -16,7 +17,7 @@ export default function TBodyEmpleados({docs,actual}:{docs:Array<empleado>,actua
         <tbody> 
             {docs.slice(actual - 10,actual).map((registro:empleado,index:number) => (
                 <tr key={index}>
-                    <td><input className="checkboxTable" type="checkbox" name="" id="" /></td>
+                    <CheckBoxTable key={index+1} checkGlobal={checkGlobal} handleCountChecked={handleCountChecked} />
                     <td className="contentCelda pd-1">
                         <img className="photoPerfil" src={registro.photo} alt="" />
                         <span>{registro.nombre}</span>

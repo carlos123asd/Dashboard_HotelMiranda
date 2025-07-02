@@ -9,62 +9,45 @@ import { useMenuTable } from "../../hooks/hookMenuTable";
 export default function THeadEmpleado({headers,docs,setDocs}:{headers:Array<string>,docs:empleado[],setDocs:(docsFilters:empleado[])=>void}){
     const [filterNombre,setFilterNombre] = useState<boolean |undefined>(undefined)
     const [filterFecha,setFilterFecha] = useState<boolean |undefined>(undefined)
-    const [filterEstado,setFilterEstado] = useState<boolean |undefined>(undefined)
-    const [filterDocs,setFilterDocs] = useState<empleado[]>(docs)
+    const [filterData,setFilterData] = useState<'Nombre' | 'Fecha de Inicio' | undefined>(undefined)
     const {menuActive} = useMenuTable()
 
-    const handleFilter = (type: string) => {
-    switch(type) {
-        case 'Nombre': setFilterNombre(prev => prev === undefined ? true : !prev); break;
-        case 'Fecha de Inicio': setFilterFecha(prev => prev === undefined ? true : !prev); break;
-        case 'Estado': setFilterEstado(prev => prev === undefined ? true : !prev); break;
-        default: throw new Error("Opción inválida");
-    }
+    const handleFilter = (type: 'Nombre' | 'Fecha de Inicio') => {
+        switch(type) {
+            case 'Nombre': setFilterNombre(prev => prev === undefined ? true : !prev);setFilterData('Nombre');break;
+            case 'Fecha de Inicio': setFilterFecha(prev => prev === undefined ? true : !prev);setFilterData('Fecha de Inicio');break;
+            default: throw new Error("Opción inválida");
+        }
     };
     
     useEffect(() => {
-        if(menuActive === 'limpiar'){
-            setFilterNombre(undefined)
-            setFilterFecha(undefined)
-            setFilterEstado(undefined)
-        }
+        setFilterNombre(undefined)
+        setFilterFecha(undefined)
+        setFilterData(undefined)
     },[menuActive])
-
-    useEffect(() => {
-        setFilterDocs(docs);
-    }, [docs]);
     
-    useEffect(() => {
-        if (!docs) return;
+   useEffect(() => {
+    if (!docs) return;
+    const sortedData = [...docs]
 
-        const filteredData = [...filterDocs];
-
-        if (filterNombre !== undefined) {
-            filteredData.sort((a, b) => {
+    if (filterNombre !== undefined && filterData === 'Nombre') {
+        sortedData.sort((a, b) => {
             const comp = a.nombre.normalize('NFD').replace(/[\u0300-\u036f]/g, "").toLowerCase()
                 .localeCompare(b.nombre.normalize('NFD').replace(/[\u0300-\u036f]/g, "").toLowerCase());
             return filterNombre ? comp : -comp;
-            });
-        }
+        })
+    }
 
-        if (filterFecha !== undefined) {
-            filteredData.sort((a, b) => {
+    if (filterFecha !== undefined && filterData === 'Fecha de Inicio') {
+        sortedData.sort((a, b) => {
             const comp = new Date(a.startDate).getTime() - new Date(b.startDate).getTime();
             return filterFecha ? comp : -comp;
-            });
-        }
+        })
+    }
 
-        if (filterEstado !== undefined) {
-            filteredData.sort((a, b) => {
-            const comp = a.status.normalize('NFD').replace(/[\u0300-\u036f]/g, "").toLowerCase()
-                .localeCompare(b.status.normalize('NFD').replace(/[\u0300-\u036f]/g, "").toLowerCase());
-            return filterEstado ? comp : -comp;
-            });
-        }
+    setDocs(sortedData);
+}, [filterNombre, filterFecha]);
 
-        setFilterDocs(filteredData)
-        setDocs(filteredData);
-    }, [filterNombre, filterFecha, filterEstado]);
 
     return <>
     {
@@ -88,16 +71,7 @@ export default function THeadEmpleado({headers,docs,setDocs}:{headers:Array<stri
                     onClick={() => handleFilter(header)}>{filterFecha ? <RiSortNumberAsc size={20} color={filterFecha === undefined ? '#939393' : 'white'} /> 
                     : <RiSortNumberDesc size={20}  color={filterFecha === undefined ? '#939393' : 'white'} />}</div>
                 </th>
-            ) : header === 'Estado' ? 
-                <th key={index} className="headerTable">
-                    {header}
-                    <div 
-                    style={{display:'inline-block'}} 
-                    className="headerTableIcon" 
-                    onClick={() => handleFilter(header)}>{filterEstado ? <RiSortAlphabetAsc size={20} color={filterEstado === undefined ? '#939393' : 'white'} /> :
-                     <RiSortAlphabetDesc size={20} color={filterEstado === undefined ? '#939393' : 'white'} />}</div>
-                </th>
-            :   <th key={index} className="headerTable">
+            ) : <th key={index} className="headerTable">
                     {header}
                 </th>
         )
