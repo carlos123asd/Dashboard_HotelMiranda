@@ -44,6 +44,13 @@ export default function THeadReserva({headers,docs,setDocs}:{headers:Array<strin
         })
     }
 
+    if (filterFechaReserva !== undefined && filterData === 'Fecha de Reserva') {
+        sortedData.sort((a, b) => {
+            const comp = new Date(a.createdAt ? a.createdAt : "").getTime() - new Date(b.createdAt ? b.createdAt : "").getTime();
+            return filterFechaReserva ? comp : -comp;
+        })
+    }
+
     if (filterFechaEntrada !== undefined && filterData === 'Entrada') {
         sortedData.sort((a, b) => {
             const comp = new Date(a.checkIn).getTime() - new Date(b.checkIn).getTime();
@@ -59,7 +66,7 @@ export default function THeadReserva({headers,docs,setDocs}:{headers:Array<strin
     }
 
     setDocs(sortedData as []);
-}, [filterNombre, filterFechaEntrada, filterFechaSalida]);
+}, [filterNombre, filterFechaEntrada, filterFechaSalida, filterFechaReserva]);
 
 
     return <>
@@ -75,7 +82,16 @@ export default function THeadReserva({headers,docs,setDocs}:{headers:Array<strin
                         filterNombre ? <RiSortAlphabetAsc size={20} color={filterNombre === undefined ? '#939393' : 'white'} /> 
                         : <RiSortAlphabetDesc size={20} color={filterNombre === undefined ? '#939393' : 'white'} />}</div>
                 </th>
-            ) : header === 'Entrada' ? (
+            ) : header === 'Fecha de Reserva' ? (
+                <th key={index} className="headerTable">
+                    {header}
+                    <div 
+                    style={{display:'inline-block'}} 
+                    className="headerTableIcon" 
+                    onClick={() => handleFilter(header)}>{filterFechaReserva ? <RiSortNumberAsc size={20} color={filterFechaReserva === undefined ? '#939393' : 'white'} /> 
+                    : <RiSortNumberDesc size={20}  color={filterFechaReserva === undefined ? '#939393' : 'white'} />}</div>
+                </th>
+            ): header === 'Entrada' ? (
                 <th key={index} className="headerTable">
                     {header}
                     <div 
