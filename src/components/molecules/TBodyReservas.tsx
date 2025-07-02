@@ -23,7 +23,7 @@ export default function TBodyReservas({docs,actual,checkGlobal,handleCountChecke
                         <span>{registro.asignacion.nombre}</span>
                     </td>
                     <td className="pd-1">
-                        FECHA DE REGISTRO
+                        { registro.createdAt ? registro.createdAt.split('T')[0].split('-').reverse().join('-') : "Fecha no disponible"}
                     </td>
                     <td className="pd-1">
                         {registro.checkIn.split('T')[0].split('-').reverse().join('-')}
@@ -32,7 +32,7 @@ export default function TBodyReservas({docs,actual,checkGlobal,handleCountChecke
                         {registro.checkOut.split('T')[0].split('-').reverse().join('-')}
                     </td>
                     <td className="pd-1">
-                        FALTA PETICION DEL CLIENTE
+                        {registro.peticion ? registro.peticion : 'Sin peticiones'}
                     </td>
                     <td className="pd-1">
                         {registro.habitacion.categoria}

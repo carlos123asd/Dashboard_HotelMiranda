@@ -14,4 +14,7 @@ export interface Reserva {
   responsable?: unknown | null;
   extras?: unknown[] | null;
   notasInternas?: unknown[] | null;
+  peticion?: string | null;
+  createdAt?:string | null,
+  updatedAt?:string | null
 }
