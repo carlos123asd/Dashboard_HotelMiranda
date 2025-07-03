@@ -3,7 +3,7 @@ import Home from "./Home";
 import { MenuProvider } from "../context/menu/MenuProvider";
 import Empleados from "./Empleados";
 import Reservas from "./Reservas";
-import Notas from "./Notas";
+import Notas from "./Nota";
 import Habitaciones from "./Habitaciones";
 import { MenuTableProvider } from "../context/menuTable/MenuTableProvider";
 import { Provider } from "react-redux";

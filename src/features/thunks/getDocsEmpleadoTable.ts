@@ -8,6 +8,6 @@ export const getDocsEmpleadoTable = createAsyncThunk('docsEmpleadosList', async 
         return json
     }else{
         const responseData = await response.json()
-        throw new Error(`Error getDocsTable: ${responseData.error}`)
+        throw new Error(`Error getEmpleadoTable: ${responseData.error}`)
     }
 })

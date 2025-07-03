@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-export const getDocsReservaTable = createAsyncThunk('docsReservaist', async (url:string) => {
+export const getDocsNotasTable = createAsyncThunk('docsNotasList', async (url:string) => {
     const response = await fetch(url)
     if(response.ok){
         const json = await response.json()
@@ -8,6 +8,6 @@ export const getDocsReservaTable = createAsyncThunk('docsReservaist', async (url
         return json
     }else{
         const responseData = await response.json()
-        throw new Error(`Error getReservaTable: ${responseData.error}`)
+        throw new Error(`Error getNotasTable: ${responseData.error}`)
     }
 })

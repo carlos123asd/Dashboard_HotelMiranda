@@ -9,8 +9,11 @@ import MenuChecked from "../molecules/MenuChecked";
 import THeadReserva from "../molecules/THeadReserva";
 import type { Reserva } from "../../types/Reserva.type";
 import TBodyReservas from "../molecules/TBodyReservas";
+import THeadNota from "../molecules/THeadNota";
+import type { Notas } from "../../types/Notas.type";
+import TBodyNotas from "../molecules/TBodyNotas";
 
-export default function Table({menu,headers,setDocs,docs}:{menu:Array<string>,headers:Array<string>,setDocs:(docsFilters:[])=>void,docs:Array<unknown>}){
+export default function Table({menu,headers,setDocs,docs}:{menu?:Array<string>,headers:Array<string>,setDocs:(docsFilters:[])=>void,docs:Array<unknown>}){
     const location = useLocation();
     const [actual,setActual] = useState<number>(10)
     const [checkedGlobal,setCheckedGlobal] = useState<boolean>(false)
@@ -52,18 +55,20 @@ export default function Table({menu,headers,setDocs,docs}:{menu:Array<string>,he
 
     return <>
         <div>
-            <MenuTabla menu={menu} />
+            {menu && <MenuTabla menu={menu} />}
             <table className="table">
                 <thead>
                     <tr>
                         <th className="headerTable"><input onChange={(e) => handleChecked(e)} checked={checkedGlobal} type="checkbox" name="" id="" /></th>
                         {location.pathname === '/empleados' && <THeadEmpleado setDocs={setDocs} docs={docs as empleado[]} headers={headers}/>}
                         {location.pathname === '/reservas' && <THeadReserva setDocs={setDocs} docs={docs as Reserva[]} headers={headers}/>}
+                        {location.pathname === '/notas' && <THeadNota setDocs={setDocs} docs={docs as Notas[]} headers={headers}/>}
                         <th className="headerTable">Acciones</th>
                     </tr>
                 </thead>
                 {location.pathname === '/empleados' && <TBodyEmpleados docs={docs as empleado[]} actual={actual} checkGlobal={checkedGlobal} handleCountChecked={handleCountChecked} />}
                 {location.pathname === '/reservas' && <TBodyReservas docs={docs as Reserva[]} actual={actual} checkGlobal={checkedGlobal} handleCountChecked={handleCountChecked} />}
+                {location.pathname === '/notas' && <TBodyNotas docs={docs as Notas[]} actual={actual} checkGlobal={checkedGlobal} handleCountChecked={handleCountChecked} />}
             </table>
             <MenuChecked checkedGlobal={checkedGlobal} setCheckedGlobal={setCheckedGlobal} countChecked={countChecked} />
             <FooterTable actual={actual} setActual={handleSetActual} total={docs.length}/>

@@ -3,8 +3,8 @@ import type { IHabitacion } from "./Habitacion.type";
 
 export type EstadoReserva = 'pendiente' | 'aceptada' | 'en curso' | 'cancelada';
 
-export interface Reserva {
-  id: string;
+export type Reserva = {
+  _id: string;
   estado: EstadoReserva;
   asignacion: ICliente;
   habitacion: IHabitacion;
