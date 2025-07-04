@@ -2,6 +2,8 @@ import type React from "react";
 import Nav from "../organisms/Nav";
 import TopBar from "../organisms/TopBar";
 import { useMenu } from "../../hooks/hookMenu";
+import Modal from "../organisms/Modal";
+import FormAddEmpleado from "../molecules/FormAddEmpleado";
 
 export default function DashboardTemplate({ children }:{children:React.ReactNode}){
     const {showMenu} = useMenu()
@@ -16,6 +18,9 @@ export default function DashboardTemplate({ children }:{children:React.ReactNode
                 {children}
             </div>
         </div>
+        <Modal>
+            <FormAddEmpleado />
+        </Modal>
     </div>
     </>
 }

@@ -1,7 +1,9 @@
 @import url('./template/dashboardTemplate.css');
+@import url('./template/modal.css');
 @import url('./template/nav.css');
 @import url('./template/topBar.css');
 @import url('./tabla.css');
+@import url('./formAdd.css');
 @import url('./home.css');
 @import url('./empleados.css');
 
