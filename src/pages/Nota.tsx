@@ -53,8 +53,8 @@ export default function Nota(){
             <div className="contentTopEmpleado">
                 <h3>Todas las Notas</h3>
                 <div className="contentBtnTops">
-                    <BtnExportDoc nombre="reservas"/>
-                    <BtnAddDoc nombre="reservas"/>
+                    <BtnExportDoc nombre="notas"/>
+                    <BtnAddDoc nombre="notas"/>
                 </div>
             </div>
             <StatusTable status={statusReserva} />

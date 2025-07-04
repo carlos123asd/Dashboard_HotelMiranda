@@ -2,6 +2,7 @@ export default function CardStatusTable({grado,nombre,cantidad}:{grado:number,no
     
     const handleColorStatus = (value:number) => {
         switch(value){
+            case 5: return "#00D8FF"
             case 4: return "#735DE4"
             case 3: return "#E68525"
             case 2: return "#52B447"

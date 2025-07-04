@@ -12,6 +12,9 @@ import TBodyReservas from "../molecules/TBodyReservas";
 import THeadNota from "../molecules/THeadNota";
 import type { Notas } from "../../types/Notas.type";
 import TBodyNotas from "../molecules/TBodyNotas";
+import THeadHabitacion from "../molecules/THeadHabitacion";
+import type { IHabitacion } from "../../types/Habitacion.type";
+import TBodyHabitacion from "../molecules/TBodyHabitacion";
 
 export default function Table({menu,headers,setDocs,docs}:{menu?:Array<string>,headers:Array<string>,setDocs:(docsFilters:[])=>void,docs:Array<unknown>}){
     const location = useLocation();
@@ -63,12 +66,14 @@ export default function Table({menu,headers,setDocs,docs}:{menu?:Array<string>,h
                         {location.pathname === '/empleados' && <THeadEmpleado setDocs={setDocs} docs={docs as empleado[]} headers={headers}/>}
                         {location.pathname === '/reservas' && <THeadReserva setDocs={setDocs} docs={docs as Reserva[]} headers={headers}/>}
                         {location.pathname === '/notas' && <THeadNota setDocs={setDocs} docs={docs as Notas[]} headers={headers}/>}
+                        {location.pathname === '/habitaciones' && <THeadHabitacion setDocs={setDocs} docs={docs as IHabitacion[]} headers={headers}/>}
                         <th className="headerTable">Acciones</th>
                     </tr>
                 </thead>
                 {location.pathname === '/empleados' && <TBodyEmpleados docs={docs as empleado[]} actual={actual} checkGlobal={checkedGlobal} handleCountChecked={handleCountChecked} />}
                 {location.pathname === '/reservas' && <TBodyReservas docs={docs as Reserva[]} actual={actual} checkGlobal={checkedGlobal} handleCountChecked={handleCountChecked} />}
                 {location.pathname === '/notas' && <TBodyNotas docs={docs as Notas[]} actual={actual} checkGlobal={checkedGlobal} handleCountChecked={handleCountChecked} />}
+                {location.pathname === '/habitaciones' && <TBodyHabitacion docs={docs as IHabitacion[]} actual={actual} checkGlobal={checkedGlobal} handleCountChecked={handleCountChecked} />}
             </table>
             <MenuChecked checkedGlobal={checkedGlobal} setCheckedGlobal={setCheckedGlobal} countChecked={countChecked} />
             <FooterTable actual={actual} setActual={handleSetActual} total={docs.length}/>

@@ -4,12 +4,14 @@ import { configureStore } from "@reduxjs/toolkit";
 import { DocsEmpleadosSlice } from "../slices/DocsEmpleadosSlice";
 import { DocsReservasSlice } from "../slices/DocsReservasSlice";
 import { DocsNotasSlice } from "../slices/DocsNotasSlice";
+import { DocsHabitacionesSlice } from "../slices/DocsHabitacionesSlice";
 
 export const store = configureStore({
     reducer: {
         empleados: DocsEmpleadosSlice.reducer,
         reservas: DocsReservasSlice.reducer,
-        notas: DocsNotasSlice.reducer
+        notas: DocsNotasSlice.reducer,
+        habitaciones: DocsHabitacionesSlice.reducer
     }
 })
 
