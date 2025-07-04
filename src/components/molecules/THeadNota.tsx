@@ -7,15 +7,17 @@ export default function THeadNota({headers,docs,setDocs}:{headers:Array<string>,
     const [filterResponsable,setFilterResponsable] = useState<boolean |undefined>(undefined)
     const [filterFecha,setFilterFecha] = useState<boolean |undefined>(undefined)
     const [filterPiso,setFilterPiso] = useState<boolean |undefined>(undefined)
+    const [filterCliente,setFilterCliente] = useState<boolean |undefined>(undefined)
     
-    const [filterData,setFilterData] = useState<'Responsable' | 'Fecha' | 'Piso' | undefined>(undefined)
+    const [filterData,setFilterData] = useState<'Responsable' | 'Fecha' | 'Piso' | 'Cliente' | undefined>(undefined)
     const {menuActive} = useMenuTable()
 
-    const handleFilter = (type: 'Responsable' | 'Fecha' | 'Piso') => {
+    const handleFilter = (type: 'Responsable' | 'Fecha' | 'Piso' | 'Cliente') => {
         switch(type) {
             case 'Responsable': setFilterResponsable(prev => prev === undefined ? true : !prev);setFilterData('Responsable');break;
             case 'Fecha': setFilterFecha(prev => prev === undefined ? true : !prev);setFilterData('Fecha');break;
             case 'Piso': setFilterPiso(prev => prev === undefined ? true : !prev);setFilterData('Piso');break;
+            case 'Cliente': setFilterCliente(prev => prev === undefined ? true : !prev);setFilterData('Cliente');break;
             default: throw new Error("Opción inválida");
         }
     };
@@ -24,6 +26,7 @@ export default function THeadNota({headers,docs,setDocs}:{headers:Array<string>,
         setFilterResponsable(undefined)
         setFilterFecha(undefined)
         setFilterPiso(undefined)
+        setFilterCliente(undefined)
         setFilterData(undefined)
     },[menuActive])
     
@@ -54,8 +57,17 @@ export default function THeadNota({headers,docs,setDocs}:{headers:Array<string>,
         })
     }
 
+    if (filterCliente !== undefined && filterData === 'Cliente') {
+        sortedData.sort((a, b) => {
+            const aNombre = a.cliente?.nombre?.normalize('NFD').replace(/[\u0300-\u036f]/g, "").toLowerCase() ?? "";
+            const bNombre = b.cliente?.nombre?.normalize('NFD').replace(/[\u0300-\u036f]/g, "").toLowerCase() ?? "";
+            const comp = aNombre.localeCompare(bNombre);
+            return filterCliente ? comp : -comp;
+        })
+    }
+
     setDocs(sortedData as []);
-    }, [filterResponsable, filterFecha, filterPiso]);
+    }, [filterResponsable, filterFecha, filterPiso, filterCliente]);
 
     
     return <>
@@ -88,6 +100,15 @@ export default function THeadNota({headers,docs,setDocs}:{headers:Array<string>,
                     className="headerTableIcon" 
                     onClick={() => handleFilter(header)}>{filterPiso ? <RiSortNumberAsc size={20} color={filterPiso === undefined ? '#939393' : 'white'} /> 
                     : <RiSortNumberDesc size={20}  color={filterPiso === undefined ? '#939393' : 'white'} />}</div>
+                </th>
+            ): header === 'Cliente' ? (
+                <th key={index} className="headerTable">
+                    {header}
+                    <div 
+                    style={{display:'inline-block'}} 
+                    className="headerTableIcon" 
+                    onClick={() => handleFilter(header)}>{filterCliente ? <RiSortAlphabetAsc size={20} color={filterCliente === undefined ? '#939393' : 'white'} /> 
+                    : <RiSortAlphabetDesc size={20}  color={filterCliente === undefined ? '#939393' : 'white'} />}</div>
                 </th>
             ) : <th key={index} className="headerTable">
                     {header}

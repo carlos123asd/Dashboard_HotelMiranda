@@ -17,7 +17,7 @@ export default function Nota(){
     const [docsCliente,setDocsCliente] = useState<Notas[]>([])
     const [docsReserva,setDocsReserva] = useState<Notas[]>([])
     const {data,status} = useSelector((state: RootState) => state.notas)
-    const {menuActive} = useMenuTable()
+    const {menuActive,setMenuActive} = useMenuTable()
 
     const dispatch = useDispatch<AppDispatch>()
 
@@ -33,6 +33,23 @@ export default function Nota(){
     const headerNotaCliente = ["Responsable","Tipo","Fecha","Cliente","Email","Direccion"]
     const headerNotaReserva = ["Responsable","Tipo","Fecha","Cliente","Habitacion","Estado de Reserva"]
 
+    const handleFilterMenu = (value:string) => {
+        switch(value){
+            case 'Todos': 
+            setDocsHabitacion(data.filter((nota:Notas) => nota.tipo === 'Habitacion'));
+            setDocsReserva(data.filter((nota:Notas) => nota.tipo === 'Reserva'));
+            setDocsCliente(data.filter((nota:Notas) => nota.tipo === 'Cliente'));break;
+            case 'Habitacion': setDocsHabitacion(data.filter((doc:Notas) => doc.tipo === 'Habitacion'));break;
+            case 'Cliente': setDocsCliente(data.filter((doc:Notas) => doc.tipo === 'Cliente'));break;
+            case 'Reserva': setDocsReserva(data.filter((doc:Notas) => doc.tipo === 'Reserva'));break;
+            case 'limpiar': 
+            setDocsHabitacion(data.filter((nota:Notas) => nota.tipo === 'Habitacion'));
+            setDocsReserva(data.filter((nota:Notas) => nota.tipo === 'Reserva'));
+            setDocsCliente(data.filter((nota:Notas) => nota.tipo === 'Cliente'));
+            setMenuActive('Todos');break;
+            default: throw new Error("Opcion invalida para Menu")
+        }
+    }
 
     useEffect(() => { 
         if(status === "idle"){
@@ -47,6 +64,10 @@ export default function Nota(){
             throw new Error ("Error al cargar los datos Empleados")
         }    
     }, [data, status, dispatch])
+
+    useEffect(() => {
+        handleFilterMenu(menuActive)
+    }, [menuActive])
 
     return <>
         <DashboardTemplate>
