@@ -5,6 +5,7 @@ import { AiOutlineMail } from "react-icons/ai";
 import { BsTelephone } from "react-icons/bs";
 import { FaAsterisk } from "react-icons/fa6";
 import GroupBtnsActionForm from "../atoms/GroupBtnsActionForm";
+import SelectForm from "../atoms/SelectForm";
 
 export default function FormAddEmpleado(){
      return <>
@@ -51,6 +52,18 @@ export default function FormAddEmpleado(){
                         <InputTextIcon placeholder="confirmar contraseña" Icon={FaAsterisk} style={{width:"50%"}} ocultar={true} />
                     </div>
                 </div>
+                <hr style={{margin:"1.5em auto"}} />
+                <div style={{gap:"10%"}} className="contentMainRowForm">
+                    <div style={{display:"flex", width:"50%"}}>
+                        <span className="contentLeftFormEmpleado">Rol</span>
+                        <SelectForm items={["Admin","staff"]}/>
+                    </div>
+                    <div style={{display:"flex", width:"50%"}}>
+                        <span className="contentLeftFormEmpleado">Estado</span>
+                        <SelectForm items={["Activo","Inactivo","Suspendido"]} />
+                    </div>
+                </div>
+
                 <hr style={{margin:"1.5em auto",marginBottom:"1em"}} />
                 <GroupBtnsActionForm />
             </div>
