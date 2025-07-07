@@ -6,14 +6,18 @@ import { BsTelephone } from "react-icons/bs";
 import { FaAsterisk } from "react-icons/fa6";
 import GroupBtnsActionForm from "../atoms/GroupBtnsActionForm";
 import SelectForm from "../atoms/SelectForm";
+import CheckBoxGroupForm from "../atoms/CheckBoxGroupForm";
+import InputPhoto from "../atoms/InputPhoto";
+import { useState } from "react";
 
 export default function FormAddEmpleado(){
+    const [image,setImage] = useState<string |null>(null)
      return <>
         <div className="FormAddDocEmpleado">
             <div className="headerDocEmpleado">
                 <div className="topImagen">
                     <div className="imagenAddPerfil">
-                        <img src={avatar} alt="" />
+                        <img src={!image ? avatar : image} alt="" />
                     </div>
                 </div>
             </div>
@@ -63,7 +67,16 @@ export default function FormAddEmpleado(){
                         <SelectForm items={["Activo","Inactivo","Suspendido"]} />
                     </div>
                 </div>
-
+                <hr style={{margin:"1.5em auto"}} />
+                <div className="contentMainRowForm">
+                        <span className="contentLeftFormEmpleado">Permisos Extra</span>
+                        <CheckBoxGroupForm listOption={["ADM","GR","GE","GH"]} />
+                </div>
+                <hr style={{margin:"1.5em auto"}} />
+                <div className="contentMainRowForm">
+                        <span className="contentLeftFormEmpleado">Foto de perfil</span>
+                        <InputPhoto setImage={setImage} image={!image ? avatar : image} />
+                </div>
                 <hr style={{margin:"1.5em auto",marginBottom:"1em"}} />
                 <GroupBtnsActionForm />
             </div>
