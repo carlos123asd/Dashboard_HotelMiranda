@@ -3,13 +3,21 @@ import { postAddDocHabitacion } from "../../features/thunks/postAddDocHabitacion
 import { postAddDocNota } from "../../features/thunks/postAddDocNota";
 import { postAddDocReserva } from "../../features/thunks/postAddDocReserva";
 import { useModal } from "../../hooks/hookModal";
+import type { empleado } from "../../types/Empleado.type";
+import { PrepararDTOEmpleadoFinal, ValidacionEmpleado } from "../../utils/validations/validacionEmpleado";
 
 export default function GroupBtnsActionForm({dto,type}:{dto:object,type:"empleado"|"reserva"|"nota"|"habitacion"}){
    const {setShowModal} = useModal()
 
     const handleDarAlta = () => {
         switch(type){
-            case "empleado": postAddDocEmpleado(dto);break;
+            case "empleado":
+                if (ValidacionEmpleado(dto as empleado)) {
+                    postAddDocEmpleado(PrepararDTOEmpleadoFinal(dto as empleado));
+                }else{
+                    console.log("DTO EMPLEADO INVALIDO CREAR TOAST")
+                }
+                break;
             case "habitacion": postAddDocHabitacion(dto);break;
             case "nota": postAddDocNota(dto);break;
             case "reserva": postAddDocReserva(dto);break;

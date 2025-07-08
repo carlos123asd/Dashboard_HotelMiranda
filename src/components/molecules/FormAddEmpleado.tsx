@@ -5,10 +5,11 @@ import { AiOutlineMail } from "react-icons/ai";
 import { BsTelephone } from "react-icons/bs";
 import GroupBtnsActionForm from "../atoms/GroupBtnsActionForm";
 import SelectForm from "../atoms/SelectForm";
-import CheckBoxGroupForm from "../atoms/CheckBoxGroupForm";
 import InputPhoto from "../atoms/InputPhoto";
 import { useState } from "react";
 import InputPassword from "../atoms/InputPassword";
+import CheckBoxGroupFormEmpleado from "../atoms/CheckBoxGroupFormEmpleado";
+import type { tipoPermisos } from "../../types/typePermisos";
 
 export default function FormAddEmpleado(){
     const [image,setImage] = useState<string | null>(null)
@@ -17,9 +18,9 @@ export default function FormAddEmpleado(){
     const [email,setEmail] = useState<string | null>(null)
     const [telefono,setTelefono] = useState<string | null>(null)
     const [password,setPassword] = useState<string | null>(null)
-    const [rol,setRol] = useState<"admin"|"staff"|null>(null)
-    const [estado,setEstado] = useState<"activo"|"inactivo"|"suspendido"|null>(null)
-    const [permisoExtra,setPermisoExtra] = useState<Array<"ADM"|"GR"|"GE"|"GH">|null>(null)
+    const [rol,setRol] = useState<"admin"|"staff"|null>("admin")
+    const [estado,setEstado] = useState<"activo"|"inactivo"|"suspendido"|null>("activo")
+    const [permisos,setPermisos] = useState<tipoPermisos[]>()
 
      return <>
         <div className="FormAddDocEmpleado">
@@ -75,13 +76,13 @@ export default function FormAddEmpleado(){
                 </div>
                 <hr style={{margin:"1.5em auto"}} />
                 <div className="contentMainRowForm">
-                        <span className="contentLeftFormEmpleado">Permisos Extra</span>
-                        <CheckBoxGroupForm estado={permisoExtra ? permisoExtra as [] : []} handle={setPermisoExtra as (value:string[]) => void} listOption={["ADM","GR","GE","GH"]} />
+                    <span className="contentLeftFormEmpleado">Permisos Extra</span>
+                    <CheckBoxGroupFormEmpleado estado={permisos ? permisos : []} handle={setPermisos} listOption={["ADM","GR","GE","GH"]} />
                 </div>
                 <hr style={{margin:"1.5em auto"}} />
                 <div className="contentMainRowForm">
-                        <span className="contentLeftFormEmpleado">Foto de perfil</span>
-                        <InputPhoto setImage={setImage} image={!image ? avatar : image} />
+                    <span className="contentLeftFormEmpleado">Foto de perfil</span>
+                    <InputPhoto setImage={setImage} image={!image ? avatar : image} />
                 </div>
                 <hr style={{margin:"1.5em auto",marginBottom:"1em"}} />
                 <GroupBtnsActionForm 
@@ -93,7 +94,7 @@ export default function FormAddEmpleado(){
                     rol: rol,
                     telefono: telefono,
                     status: estado,
-                    permisosExtra: permisoExtra
+                    permisosExtra: permisos
                 }} type="empleado" />
             </div>
         </div>

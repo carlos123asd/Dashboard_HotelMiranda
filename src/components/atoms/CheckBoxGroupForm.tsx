@@ -14,9 +14,9 @@ export default function CheckBoxGroupForm({estado,handle,listOption}:{estado:str
     return <>
         <div style={{display:"flex", gap:"2em"}}>
             {
-                listOption.map((option:string) => (
+                listOption.map((option:string,index:number) => (
                     <>
-                        <div>
+                        <div key={index}>
                             <label className="contentLeftFormEmpleado" htmlFor={option}>{option}</label>
                             <input 
                             type="checkbox" 

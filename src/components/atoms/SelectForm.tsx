@@ -2,8 +2,8 @@ export default function SelectForm({handle,items}:{handle:(value:string) => void
     return <>
         <select onChange={(e:React.ChangeEvent<HTMLSelectElement>) => handle(e.currentTarget.value)} className="selectForm" name="" id="">
             {
-                items.map((item:string) => (
-                    <option value={item}>{item}</option>
+                items.map((item:string,index:number) => (
+                    <option key={index} value={item}>{item}</option>
                 ))
             }
         </select>
