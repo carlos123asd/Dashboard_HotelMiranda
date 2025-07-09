@@ -36,7 +36,7 @@ export default function TBodyEmpleados({docs,actual,checkGlobal,handleCountCheck
                         <div className={`tagStatusEmpleadoTable ${handleStatusStyle(registro.status)}`}>{registro.status}</div>
                     </td>
                     <td>
-                        <ActionsTable />
+                        <ActionsTable dto={registro} nombre="empleados"/>
                     </td>
                 </tr>
             ))}

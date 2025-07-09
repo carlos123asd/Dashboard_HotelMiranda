@@ -39,7 +39,7 @@ export default function TBodyHabitacion({docs,actual,checkGlobal,handleCountChec
                         {registro.oferta.toFixed()}%
                     </td>
                     <td>
-                        <ActionsTable />
+                        <ActionsTable dto={registro} nombre="habitaciones" />
                     </td>
                 </tr>
             ))}

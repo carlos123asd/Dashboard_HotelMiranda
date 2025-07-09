@@ -41,7 +41,7 @@ export default function TBodyReservas({docs,actual,checkGlobal,handleCountChecke
                         <div className={`tagStatusEmpleadoTable ${handleStatusStyle(registro.estado)}`}>{registro.estado}</div>
                     </td>
                     <td>
-                        <ActionsTable />
+                        <ActionsTable dto={registro} nombre="reservas" />
                     </td>
                 </tr>
             ))}

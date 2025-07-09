@@ -1,14 +1,14 @@
 import { IoMdAdd } from "react-icons/io";
 import { useModal } from "../../hooks/hookModal";
 export default function BtnAddDoc({nombre}:{nombre:string}){
-    const {setTypeForm,setShowModal} = useModal()
+    const {setTypeForm,setShowModal,setEdit,setLoadDTO} = useModal()
 
     const handleAdd = () => {
         switch(nombre){
-            case "empleados": setTypeForm("empleados");setShowModal(true);break;
-            case "reservas": setTypeForm("reservas");setShowModal(true);break;
-            case "notas": setTypeForm("notas");setShowModal(true);break;
-            case "habitaciones": setTypeForm("habitaciones");setShowModal(true);break;
+            case "empleados": setTypeForm("empleados");setShowModal(true);setEdit(false);setLoadDTO(null);break;
+            case "reservas": setTypeForm("reservas");setShowModal(true);setEdit(false);setLoadDTO(null);break;
+            case "notas": setTypeForm("notas");setShowModal(true);setEdit(false);setLoadDTO(null);break;
+            case "habitaciones": setTypeForm("habitaciones");setShowModal(false);setEdit(false);setLoadDTO(null);break;
             default: throw new Error("Opcion invalida para modal, ADD doc")
         }
     }

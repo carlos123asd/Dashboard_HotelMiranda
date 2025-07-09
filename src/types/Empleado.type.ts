@@ -1,3 +1,5 @@
+import type { tipoPermisos } from "./typePermisos";
+
 type Permiso = {
   codigo: string;
   nivel: number;
@@ -21,5 +23,5 @@ export type empleado = {
   telefono: string;
   status: string;
   startDate: string;
-  permisosExtra: unknown[];
+  permisosExtra: tipoPermisos[];
 };

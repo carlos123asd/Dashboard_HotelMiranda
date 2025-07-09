@@ -74,7 +74,7 @@ export default function TBodyNotas({docs,actual,checkGlobal,handleCountChecked}:
                         </>
                     }
                     <td>
-                        <ActionsTable />
+                        <ActionsTable dto={registro} nombre="notas" />
                     </td>
                 </tr>
             ))}

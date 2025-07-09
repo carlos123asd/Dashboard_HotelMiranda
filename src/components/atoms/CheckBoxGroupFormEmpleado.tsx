@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import type { tipoPermisos } from "../../types/typePermisos"
 
-export default function CheckBoxGroupFormEmpleado({estado,handle,listOption}:{estado:tipoPermisos[],handle:(value:tipoPermisos[]) => void,listOption:Array<string>}){
+export default function CheckBoxGroupFormEmpleado({estado,handle,listOption,value}:{estado:tipoPermisos[],handle:(value:tipoPermisos[]) => void,listOption:Array<string>,value?:tipoPermisos[]}){
     const [permisoExtra,setPermisoExtra] = useState<Array<"ADM"|"GR"|"GE"|"GH">|null>(null)
     const [nivelADM,setNivelADM] = useState<number>(permisoExtra?.some((permiso) => permiso === "ADM") ? 1 : 0)
     const [nivelGR,setNivelGR] = useState<number>((permisoExtra?.some((permiso) => permiso === "GR") ? 1 : 0))
@@ -126,7 +126,7 @@ export default function CheckBoxGroupFormEmpleado({estado,handle,listOption}:{es
                                 value={option} 
                                 name={option} 
                                 id={option} 
-                                checked={(permisoExtra ?? []).includes(option as "ADM" | "GR" | "GE" | "GH")}
+                                checked={value !== undefined ? value.some((item) => item.codigo === option) : ((permisoExtra ?? []).includes(option as "ADM" | "GR" | "GE" | "GH"))}
                                 onChange={handleCheckChange}
                                 />
                             </div> 

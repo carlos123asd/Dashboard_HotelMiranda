@@ -60,7 +60,7 @@ export default function Empleados(){
                 <h3>Todos los Empleados</h3>
                 <div className="contentBtnTops">
                     <BtnExportDoc nombre="empleados"/>
-                    <BtnAddDoc nombre="empleados"/>
+                    <BtnAddDoc nombre="empleados" />
                 </div>
             </div>
             <StatusTable status={statusEmpleado} />

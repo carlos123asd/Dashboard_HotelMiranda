@@ -4,7 +4,7 @@ import { postAddDocNota } from "../../features/thunks/postAddDocNota";
 import { postAddDocReserva } from "../../features/thunks/postAddDocReserva";
 import { useModal } from "../../hooks/hookModal";
 import type { empleado } from "../../types/Empleado.type";
-import { PrepararDTOEmpleadoFinal, ValidacionEmpleado } from "../../utils/validations/validacionEmpleado";
+import { PrepararDTOEmpleadoFinal, ValidacionEmpleado } from "../../utils/validations/ValidacionEmpleado";
 
 export default function GroupBtnsActionForm({dto,type}:{dto:object,type:"empleado"|"reserva"|"nota"|"habitacion"}){
    const {setShowModal} = useModal()
