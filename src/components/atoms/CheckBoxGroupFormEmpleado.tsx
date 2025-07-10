@@ -64,6 +64,12 @@ export default function CheckBoxGroupFormEmpleado({estado,handle,listOption,valu
     }
     
     useEffect(() => {
+        if(value){
+            setPermisoExtra(value.map(permiso => permiso.codigo as "ADM" | "GR" | "GE" | "GH"))
+        }
+    },[])
+    
+    useEffect(() => {
         let niveles:tipoPermisos[] = estado
 
         if(nivelADM !== 0){
@@ -142,11 +148,11 @@ export default function CheckBoxGroupFormEmpleado({estado,handle,listOption,valu
                         <span style={{marginRight:"1em",width:"max-content"}} className="contentLeftFormEmpleado">Nivel ADM (1-3)</span>
                         <div>
                             <label style={{fontSize:".9rem"}} className="contentLeftFormEmpleado" htmlFor="crearADM">crear</label>
-                            <input onChange={(e:React.ChangeEvent<HTMLInputElement>) => e.target.checked ? setNivelADM(switchNivelToValue("crear")) : null} style={{marginRight:"1em"}} type="radio" name="nivelADMADM" id="crearADM" checked/>
+                            <input onChange={(e:React.ChangeEvent<HTMLInputElement>) => e.target.checked ? setNivelADM(switchNivelToValue("crear")) : null} style={{marginRight:"1em"}} type="radio" name="nivelADMADM" id="crearADM" checked={value ? value.some(permiso => permiso.nivel === 1) : false} />
                             <label style={{fontSize:".9rem"}} className="contentLeftFormEmpleado" htmlFor="modificarADM">modificar</label>
-                            <input onChange={(e:React.ChangeEvent<HTMLInputElement>) => e.target.checked ? setNivelADM(switchNivelToValue("modificar")) : null} style={{marginRight:"1em"}} type="radio" name="nivelADM" id="modificarADM" />
+                            <input onChange={(e:React.ChangeEvent<HTMLInputElement>) => e.target.checked ? setNivelADM(switchNivelToValue("modificar")) : null} style={{marginRight:"1em"}} type="radio" name="nivelADM" id="modificarADM" checked={value ? value.some(permiso => permiso.nivel === 2) : false} />
                             <label style={{fontSize:".9rem"}} className="contentLeftFormEmpleado" htmlFor="eliminarADM">eliminar</label>
-                            <input onChange={(e:React.ChangeEvent<HTMLInputElement>) => e.target.checked ? setNivelADM(switchNivelToValue("eliminar")) : null} type="radio" name="nivelADM" id="eliminarADM" />
+                            <input onChange={(e:React.ChangeEvent<HTMLInputElement>) => e.target.checked ? setNivelADM(switchNivelToValue("eliminar")) : null} type="radio" name="nivelADM" id="eliminarADM" checked={value ? value.some(permiso => permiso.nivel === 3) : false} />
                         </div>
                     </div>
                 </div>}
@@ -157,11 +163,11 @@ export default function CheckBoxGroupFormEmpleado({estado,handle,listOption,valu
                         <span style={{marginRight:"1em",width:"max-content"}} className="contentLeftFormEmpleado">Nivel GR (1-3)</span>
                         <div>
                             <label style={{fontSize:".9rem"}} className="contentLeftFormEmpleado" htmlFor="crearGR">crear</label>
-                            <input onChange={(e:React.ChangeEvent<HTMLInputElement>) => e.target.checked ? setNivelGR(switchNivelToValue("crear")) : null} style={{marginRight:"1em"}} type="radio" name="nivelGR" id="crearGR" checked/>
+                            <input onChange={(e:React.ChangeEvent<HTMLInputElement>) => e.target.checked ? setNivelGR(switchNivelToValue("crear")) : null} style={{marginRight:"1em"}} type="radio" name="nivelGR" id="crearGR" checked={value ? value.some(permiso => permiso.nivel === 1) : false}/>
                             <label style={{fontSize:".9rem"}} className="contentLeftFormEmpleado" htmlFor="modificarGR">modificar</label>
-                            <input onChange={(e:React.ChangeEvent<HTMLInputElement>) => e.target.checked ? setNivelGR(switchNivelToValue("modificar")) : null} style={{marginRight:"1em"}} type="radio" name="nivelGR" id="modificarGR" />
+                            <input onChange={(e:React.ChangeEvent<HTMLInputElement>) => e.target.checked ? setNivelGR(switchNivelToValue("modificar")) : null} style={{marginRight:"1em"}} type="radio" name="nivelGR" id="modificarGR" checked={value ? value.some(permiso => permiso.nivel === 2) : false} />
                             <label style={{fontSize:".9rem"}} className="contentLeftFormEmpleado" htmlFor="eliminarGR">eliminar</label>
-                            <input onChange={(e:React.ChangeEvent<HTMLInputElement>) => e.target.checked ? setNivelGR(switchNivelToValue("eliminar")) : null} type="radio" name="nivelGR" id="eliminarGR" />
+                            <input onChange={(e:React.ChangeEvent<HTMLInputElement>) => e.target.checked ? setNivelGR(switchNivelToValue("eliminar")) : null} type="radio" name="nivelGR" id="eliminarGR" checked={value ? value.some(permiso => permiso.nivel === 3) : false} />
                         </div>
                     </div>
                 </div>}
@@ -172,11 +178,11 @@ export default function CheckBoxGroupFormEmpleado({estado,handle,listOption,valu
                         <span style={{marginRight:"1em",width:"max-content"}} className="contentLeftFormEmpleado">Nivel GE (1-3)</span>
                         <div>
                             <label style={{fontSize:".9rem"}} className="contentLeftFormEmpleado" htmlFor="crearGE">crear</label>
-                            <input onChange={(e:React.ChangeEvent<HTMLInputElement>) => e.target.checked ? setNivelGE(switchNivelToValue("crear")) : null} style={{marginRight:"1em"}} type="radio" name="nivelGE" id="crearGE" checked/>
+                            <input onChange={(e:React.ChangeEvent<HTMLInputElement>) => e.target.checked ? setNivelGE(switchNivelToValue("crear")) : null} style={{marginRight:"1em"}} type="radio" name="nivelGE" id="crearGE" checked={value ? value.some(permiso => permiso.nivel === 1) : false} />
                             <label style={{fontSize:".9rem"}} className="contentLeftFormEmpleado" htmlFor="modificarGE">modificar</label>
-                            <input onChange={(e:React.ChangeEvent<HTMLInputElement>) => e.target.checked ? setNivelGE(switchNivelToValue("modificar")) : null} style={{marginRight:"1em"}} type="radio" name="nivelGE" id="modificarGE" />
+                            <input onChange={(e:React.ChangeEvent<HTMLInputElement>) => e.target.checked ? setNivelGE(switchNivelToValue("modificar")) : null} style={{marginRight:"1em"}} type="radio" name="nivelGE" id="modificarGE" checked={value ? value.some(permiso => permiso.nivel === 2) : false} />
                             <label style={{fontSize:".9rem"}} className="contentLeftFormEmpleado" htmlFor="eliminarGE">eliminar</label>
-                            <input onChange={(e:React.ChangeEvent<HTMLInputElement>) => e.target.checked ? setNivelGE(switchNivelToValue("eliminar")) : null} type="radio" name="nivelGE" id="eliminarGE" />
+                            <input onChange={(e:React.ChangeEvent<HTMLInputElement>) => e.target.checked ? setNivelGE(switchNivelToValue("eliminar")) : null} type="radio" name="nivelGE" id="eliminarGE" checked={value ? value.some(permiso => permiso.nivel === 3) : false} />
                         </div>
                     </div>
                 </div>}
@@ -187,11 +193,11 @@ export default function CheckBoxGroupFormEmpleado({estado,handle,listOption,valu
                         <span style={{marginRight:"1em",width:"max-content"}} className="contentLeftFormEmpleado">Nivel GH (1-3)</span>
                         <div>
                             <label style={{fontSize:".9rem"}} className="contentLeftFormEmpleado" htmlFor="crearGH">crear</label>
-                            <input onChange={(e:React.ChangeEvent<HTMLInputElement>) => e.target.checked ? setNivelGH(switchNivelToValue("crear")) : null} style={{marginRight:"1em"}} type="radio" name="nivelGH" id="crearGH" checked/>
+                            <input onChange={(e:React.ChangeEvent<HTMLInputElement>) => e.target.checked ? setNivelGH(switchNivelToValue("crear")) : null} style={{marginRight:"1em"}} type="radio" name="nivelGH" id="crearGH" checked={value ? value.some(permiso => permiso.nivel === 1) : false} />
                             <label style={{fontSize:".9rem"}} className="contentLeftFormEmpleado" htmlFor="modificarGH">modificar</label>
-                            <input onChange={(e:React.ChangeEvent<HTMLInputElement>) => e.target.checked ? setNivelGH(switchNivelToValue("modificar")) : null} style={{marginRight:"1em"}} type="radio" name="nivelGH" id="modificarGH" />
+                            <input onChange={(e:React.ChangeEvent<HTMLInputElement>) => e.target.checked ? setNivelGH(switchNivelToValue("modificar")) : null} style={{marginRight:"1em"}} type="radio" name="nivelGH" id="modificarGH" checked={value ? value.some(permiso => permiso.nivel === 2) : false} />
                             <label style={{fontSize:".9rem"}} className="contentLeftFormEmpleado" htmlFor="eliminarGH">eliminar</label>
-                            <input onChange={(e:React.ChangeEvent<HTMLInputElement>) => e.target.checked ? setNivelGH(switchNivelToValue("eliminar")) : null} type="radio" name="nivelGH" id="eliminarGH" />
+                            <input onChange={(e:React.ChangeEvent<HTMLInputElement>) => e.target.checked ? setNivelGH(switchNivelToValue("eliminar")) : null} type="radio" name="nivelGH" id="eliminarGH" checked={value ? value.some(permiso => permiso.nivel === 3) : false} />
                         </div>
                     </div>
                 </div>}

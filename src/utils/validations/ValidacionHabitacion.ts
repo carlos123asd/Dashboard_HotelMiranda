@@ -1,14 +1,13 @@
-import type { empleado } from "../../types/Empleado.type"
+import type { IHabitacion } from "../../types/Habitacion.type"
 
-export const ValidacionEmpleado = (dto:empleado):boolean => {
+export const ValidacionHabitacion = (dto:IHabitacion):boolean => {
     return true
 }
 
-export const PrepararDTOEmpleadoFinal = (dto:empleado) => {
-    const dtoEmpleadoFinal = {
-        "nuevoEmpleado":{
-            ...dto,
-            startDate: new Date().toISOString()
+export const PrepararDTOHabitacionFinal = (dto:IHabitacion) => {
+    const dtoHabitacionFinal = {
+        "nuevaHabitacion":{
+            ...dto
         },
         "responsable":{
             _id: "6862c745c5478b8b9372ba31",
@@ -26,6 +25,5 @@ export const PrepararDTOEmpleadoFinal = (dto:empleado) => {
     }
 
      
-    return dtoEmpleadoFinal
+    return dtoHabitacionFinal
 }
-
