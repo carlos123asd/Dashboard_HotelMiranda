@@ -5,6 +5,9 @@ import { useMenu } from "../../hooks/hookMenu";
 import Modal from "../organisms/Modal";
 import FormAddEmpleado from "../molecules/FormAddEmpleado";
 import { useModal } from "../../hooks/hookModal";
+import FormAddReserva from "../molecules/FormAddReserva";
+import FormAddNotas from "../molecules/FormAddNotas";
+import FormAddHabitaciones from "../molecules/FormAddHabitaciones";
 
 export default function DashboardTemplate({ children }:{children:React.ReactNode}){
     const {showMenu} = useMenu()
@@ -22,7 +25,10 @@ export default function DashboardTemplate({ children }:{children:React.ReactNode
             </div>
         </div>
         {showModal && <Modal>
-            {typeForm && <FormAddEmpleado />}
+            {typeForm === "empleados" && <FormAddEmpleado />}
+            {typeForm === "reservas" && <FormAddReserva />}
+            {typeForm === "notas" && <FormAddNotas />}
+            {typeForm === "habitaciones" && <FormAddHabitaciones />}
         </Modal>}
     </div>
     </>
