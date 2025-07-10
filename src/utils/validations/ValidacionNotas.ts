@@ -10,7 +10,23 @@ export const PrepararDTONotaFinal = (dto:Notas) => {
             ...dto
         }
     }
+    return dtoNotaFinal
+}
 
-     
+export const PrepararDTOModNotaFinal = (dto:Notas) => {
+    const dtoNotaFinal = {
+        "notasInternasMod":{
+            ...dto
+        }
+    }
+    return dtoNotaFinal
+}
+
+export const PrepararDTODeleteNotaFinal = (dto:Notas) => {
+    const dtoNotaFinal = {
+        "notaInterna":{
+            ...dto
+        }
+    }
     return dtoNotaFinal
 }

@@ -1,10 +1,19 @@
 import { MdOutlineEdit } from "react-icons/md";
 import { MdDeleteOutline } from "react-icons/md";
 import { useModal } from "../../hooks/hookModal";
+import { PrepararDTODeleteEmpleadoFinal } from "../../utils/validations/ValidacionEmpleado";
+import { PrepararDTODeleteReservaFinal } from "../../utils/validations/ValidacionReserva";
+import { PrepararDTODeleteNotaFinal } from "../../utils/validations/ValidacionNotas";
+import { PrepararDTODeleteHabitacionFinal } from "../../utils/validations/ValidacionHabitacion";
+import { deleteDocEmpleado } from "../../features/thunks/deleteDocEmpleado";
+import type { empleado } from "../../types/Empleado.type";
+import type { Reserva } from "../../types/Reserva.type";
+import type { Notas } from "../../types/Notas.type";
+import type { IHabitacion } from "../../types/Habitacion.type";
 
-export default function ActionsTable({nombre,dto}:{nombre:string,dto:object}){
+export default function ActionsTable({dto,nombre}:{dto:object,nombre:string}){
     const {setTypeForm,setShowModal,setEdit,setLoadDTO} = useModal()
-
+    console.log(dto)
     const handleEdit = () => {
         switch(nombre){
             case "empleados": setTypeForm("empleados");setShowModal(true);setEdit(true);setLoadDTO(dto);break;
@@ -15,10 +24,20 @@ export default function ActionsTable({nombre,dto}:{nombre:string,dto:object}){
         }
     }
 
+    const handleDelete = () => {
+        switch(nombre){
+            case "empleados": deleteDocEmpleado(PrepararDTODeleteEmpleadoFinal(dto as empleado));break;
+            case "reservas": deleteDocEmpleado(PrepararDTODeleteReservaFinal(dto as Reserva));break;
+            case "notas": deleteDocEmpleado(PrepararDTODeleteNotaFinal(dto as Notas));break;
+            case "habitaciones": deleteDocEmpleado(PrepararDTODeleteHabitacionFinal(dto as IHabitacion));break;
+            default: throw new Error("Opcion invalida para eliminar, doc")
+        }
+    }
+
     return <>
         <div className="tdActions">
             <MdOutlineEdit onClick={handleEdit} size={30}  />
-            <MdDeleteOutline size={30} color="#DE524D"  />
+            <MdDeleteOutline onClick={handleDelete} size={30} color="#DE524D"  />
         </div>
     </>
 }

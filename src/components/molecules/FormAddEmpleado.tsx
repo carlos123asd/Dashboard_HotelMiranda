@@ -6,7 +6,7 @@ import { BsTelephone } from "react-icons/bs";
 import GroupBtnsActionForm from "../atoms/GroupBtnsActionForm";
 import SelectForm from "../atoms/SelectForm";
 import InputPhoto from "../atoms/InputPhoto";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import InputPassword from "../atoms/InputPassword";
 import CheckBoxGroupFormEmpleado from "../atoms/CheckBoxGroupFormEmpleado";
 import type { tipoPermisos } from "../../types/typePermisos";
@@ -21,9 +21,23 @@ export default function FormAddEmpleado(){
     const [email,setEmail] = useState<string | null>("")
     const [telefono,setTelefono] = useState<string | null>(null)
     const [password,setPassword] = useState<string | null>(null)
-    const [rol,setRol] = useState<"admin"|"staff"|null>("admin")
-    const [estado,setEstado] = useState<"activo"|"inactivo"|"suspendido"|null>("activo")
+    const [rol,setRol] = useState<"admin"|"staff">("admin")
+    const [estado,setEstado] = useState<"activo"|"inactivo"|"suspendido">("activo")
     const [permisos,setPermisos] = useState<tipoPermisos[]>()
+
+    useEffect(() => {
+        if(loadDTO){
+            setImage((loadDTO as empleado).photo)
+            setNombre((loadDTO as empleado).nombre.split(" ")[0])
+            setApellido((loadDTO as empleado).nombre.split(" ").reverse()[0])
+            setEmail((loadDTO as empleado).email)
+            setTelefono((loadDTO as empleado).telefono)
+            setPassword((loadDTO as empleado).password)
+            setRol((loadDTO as empleado).rol.codigo as "admin"|"staff")
+            setEstado((loadDTO as empleado).status as "activo"|"inactivo"|"suspendido")
+            setPermisos((loadDTO as empleado).permisosExtra)
+        }
+    },[])
 
      return <>
         <div className="FormAddDocEmpleado">
@@ -90,7 +104,20 @@ export default function FormAddEmpleado(){
                 </div>
                 <hr style={{margin:"1.5em auto",marginBottom:"1em"}} />
                 <GroupBtnsActionForm 
-                dto={{
+                dto={loadDTO ? {
+                    id: String((loadDTO as empleado).id),
+                    nombre: nombre+" "+apellido,
+                    email: email,
+                    password: password,
+                    photo: image,
+                    rol: rol,
+                    telefono: telefono,
+                    status: estado,
+                    permisosExtra: permisos,
+                    codigo: (loadDTO as empleado).codigo,
+                    startDate: (loadDTO as empleado).startDate
+                } :
+                {
                     nombre: nombre+" "+apellido,
                     email: email,
                     password: password,
