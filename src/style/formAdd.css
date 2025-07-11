@@ -161,3 +161,17 @@
 .inputPhoto:hover{
     cursor: pointer;
 }
+.cardListCheckBox{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background: #1F1F21;
+    border-bottom: 1px solid #9A9A9A;
+    justify-content: space-between;
+}
+.contentMainList{
+    width: 100%;
+    overflow: hidden;
+    border-radius: 1em;
+}

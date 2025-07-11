@@ -14,17 +14,17 @@ import Table from "../components/organisms/Table"
 export default function Habitaciones(){
     const [docs,setDocs] = useState<IHabitacion[]>([])
     const {menuActive,setMenuActive} = useMenuTable()
-    const {data,status} = useSelector((state: RootState) => state.habitaciones)
+    const {dataHabitaciones,statusHabitaciones} = useSelector((state: RootState) => state.habitaciones)
 
     const dispatch = useDispatch<AppDispatch>()
 
     const statusHabitacion = [
-        {nombre:"Habitacion Simple",grado:5,cantidad:data.filter((doc:IHabitacion) => doc.categoria === 'Habitacion Simple').length},
-        {nombre:"Doble Habitacion",grado:5,cantidad:data.filter((doc:IHabitacion) => doc.categoria === 'Doble Habitacion').length},
-        {nombre:"Suite",grado:5,cantidad:data.filter((doc:IHabitacion) => doc.categoria === 'Suite').length},
-        {nombre:"Deluxe",grado:5,cantidad:data.filter((doc:IHabitacion) => doc.categoria === 'Deluxe').length},
-        {nombre:"Familiar",grado:5,cantidad:data.filter((doc:IHabitacion) => doc.categoria === 'Familiar').length},
-        {nombre:"Presidencial",grado:5,cantidad:data.filter((doc:IHabitacion) => doc.categoria === 'Presidencial').length},
+        {nombre:"Habitacion Simple",grado:5,cantidad:dataHabitaciones.filter((doc:IHabitacion) => doc.categoria === 'Habitacion Simple').length},
+        {nombre:"Doble Habitacion",grado:5,cantidad:dataHabitaciones.filter((doc:IHabitacion) => doc.categoria === 'Doble Habitacion').length},
+        {nombre:"Suite",grado:5,cantidad:dataHabitaciones.filter((doc:IHabitacion) => doc.categoria === 'Suite').length},
+        {nombre:"Deluxe",grado:5,cantidad:dataHabitaciones.filter((doc:IHabitacion) => doc.categoria === 'Deluxe').length},
+        {nombre:"Familiar",grado:5,cantidad:dataHabitaciones.filter((doc:IHabitacion) => doc.categoria === 'Familiar').length},
+        {nombre:"Presidencial",grado:5,cantidad:dataHabitaciones.filter((doc:IHabitacion) => doc.categoria === 'Presidencial').length},
     ]
 
     const menuHabitacion = ["Todos","Habitacion Simple","Doble Habitacion","Suite","Deluxe","Familiar","Presidencial"]
@@ -32,29 +32,29 @@ export default function Habitaciones(){
 
     const handleFilterMenu = (value:string) => {
         switch(value){
-            case 'Todos': setDocs(data);break;
-            case 'Habitacion Simple': setDocs(data.filter((doc:IHabitacion) => doc.categoria === 'Habitacion Simple'));break;
-            case 'Doble Habitacion': setDocs(data.filter((doc:IHabitacion) => doc.categoria === 'Doble Habitacion'));break;
-            case 'Suite': setDocs(data.filter((doc:IHabitacion) => doc.categoria === 'Suite'));break;
-            case 'Deluxe': setDocs(data.filter((doc:IHabitacion) => doc.categoria === 'Deluxe'));break;
-            case 'Familiar': setDocs(data.filter((doc:IHabitacion) => doc.categoria === 'Familiar'));break;
-            case 'Presidencial': setDocs(data.filter((doc:IHabitacion) => doc.categoria === 'Presidencial'));break;
-            case 'limpiar': setDocs(data);setMenuActive('Todos');break;
+            case 'Todos': setDocs(dataHabitaciones);break;
+            case 'Habitacion Simple': setDocs(dataHabitaciones.filter((doc:IHabitacion) => doc.categoria === 'Habitacion Simple'));break;
+            case 'Doble Habitacion': setDocs(dataHabitaciones.filter((doc:IHabitacion) => doc.categoria === 'Doble Habitacion'));break;
+            case 'Suite': setDocs(dataHabitaciones.filter((doc:IHabitacion) => doc.categoria === 'Suite'));break;
+            case 'Deluxe': setDocs(dataHabitaciones.filter((doc:IHabitacion) => doc.categoria === 'Deluxe'));break;
+            case 'Familiar': setDocs(dataHabitaciones.filter((doc:IHabitacion) => doc.categoria === 'Familiar'));break;
+            case 'Presidencial': setDocs(dataHabitaciones.filter((doc:IHabitacion) => doc.categoria === 'Presidencial'));break;
+            case 'limpiar': setDocs(dataHabitaciones);setMenuActive('Todos');break;
             default: throw new Error("Opcion invalida para Menu")
         }
     }
 
     useEffect(() => { 
-        if(status === "idle"){
+        if(statusHabitaciones === "idle"){
             dispatch(getDocsHabitacionTable(urlGetHabitaciones))
-        }else if(status === "pending"){
+        }else if(statusHabitaciones === "pending"){
             console.log("Cargando")
-        }else if(status === "fulfilled"){
-            setDocs(data)
-        }else if(status === "rejected"){
+        }else if(statusHabitaciones === "fulfilled"){
+            setDocs(dataHabitaciones)
+        }else if(statusHabitaciones === "rejected"){
             throw new Error ("Error al cargar los datos Empleados")
         }    
-    }, [data, status, dispatch])
+    }, [dataHabitaciones, statusHabitaciones, dispatch])
 
     useEffect(() => {
         handleFilterMenu(menuActive)

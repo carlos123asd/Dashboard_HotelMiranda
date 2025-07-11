@@ -2,14 +2,14 @@ import { createSlice } from "@reduxjs/toolkit"
 import { getDocsHabitacionTable } from "../thunks/getDocsHabitacionTable"
 
 type typeListHabitaciones = {
-    data: [],
-    status: 'idle' | 'pending' | 'fulfilled' | 'rejected',
+    dataHabitaciones: [],
+    statusHabitaciones: 'idle' | 'pending' | 'fulfilled' | 'rejected',
     error: string | null
 }
 
 const initialState:typeListHabitaciones = {
-    data: [],
-    status: 'idle',
+    dataHabitaciones: [],
+    statusHabitaciones: 'idle',
     error: null
 }
 
@@ -21,14 +21,14 @@ export const DocsHabitacionesSlice = createSlice({
     extraReducers: (builder) => {
         builder
         .addCase(getDocsHabitacionTable.pending, (state) => {
-            state.status = 'pending'
+            state.statusHabitaciones = 'pending'
         })
         .addCase(getDocsHabitacionTable.fulfilled, (state,action) => {
-            state.status = 'fulfilled'
-            state.data = action.payload
+            state.statusHabitaciones = 'fulfilled'
+            state.dataHabitaciones = action.payload
         })
         .addCase(getDocsHabitacionTable.rejected, (state,action) => {
-            state.status = 'rejected'
+            state.statusHabitaciones = 'rejected'
             state.error = action.error?.message ?? null
         })
     }
