@@ -8,13 +8,19 @@ import type { AppDispatch, RootState } from "../features/store/store";
 import Table from "../components/organisms/Table";
 import { useEffect, useState } from "react";
 import { useMenuTable } from "../hooks/hookMenuTable";
-import { urlGetReservas } from "../features/uris/urls";
+import { urlGetHabitaciones, urlGetReservas } from "../features/uris/urls";
 import { getDocsReservaTable } from "../features/thunks/getDocsReservaTable";
+import { getDocsCliente } from "../features/thunks/getDocsCliente";
+import { getDocsHabitacionTable } from "../features/thunks/getDocsHabitacionTable";
 
 export default function Reservas(){
     const [docs,setDocs] = useState<Reserva[]>([])
+    
     const {menuActive,setMenuActive} = useMenuTable()
+
     const {data,status} = useSelector((state: RootState) => state.reservas)
+    const {statusCliente} = useSelector((state: RootState) => state.clientes)
+    const {statusHabitaciones} = useSelector((state: RootState) => state.habitaciones)
 
     const dispatch = useDispatch<AppDispatch>()
 
@@ -47,6 +53,26 @@ export default function Reservas(){
     }
 
     useEffect(() => { 
+        if(statusCliente === "idle"){
+            dispatch(getDocsCliente())
+        }else if(statusCliente === "pending"){
+            console.log("Cargando")
+        }else if(statusCliente === "fulfilled"){
+            console.log("Cargado")
+        }else if(statusCliente === "rejected" && statusHabitaciones === "rejected"){
+            throw new Error ("Error al cargar los datos Cliente para formulario Reserva")
+        }
+
+        if(statusHabitaciones === "idle"){
+            dispatch(getDocsHabitacionTable(urlGetHabitaciones))
+        }else if(statusHabitaciones === "pending"){
+            console.log("Cargando")
+        }else if(statusHabitaciones === "fulfilled"){
+             console.log("Cargado")
+        }else if(statusHabitaciones === "rejected"){
+            throw new Error ("Error al cargar los datos Habitaciones para formulario Reserva")
+        }
+        
         if(status === "idle"){
             dispatch(getDocsReservaTable(urlGetReservas))
         }else if(status === "pending"){
@@ -56,7 +82,7 @@ export default function Reservas(){
         }else if(status === "rejected"){
             throw new Error ("Error al cargar los datos Empleados")
         }    
-    }, [data, status, dispatch])
+    }, [data, status, statusCliente, statusHabitaciones, dispatch])
 
     useEffect(() => {
         handleFilterMenu(menuActive)

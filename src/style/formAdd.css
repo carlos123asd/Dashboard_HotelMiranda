@@ -178,3 +178,9 @@
 .react-datepicker__day--selected{
     background-color: #1F1F21 !important;
 }
+.react-datepicker-ignore-onclickoutside{
+    outline: none;
+}
+.react-datepicker-ignore-onclickoutside:focus{
+    border: 2px solid #aa92fc;
+}
