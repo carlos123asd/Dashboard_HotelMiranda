@@ -1,7 +1,21 @@
-export default function InputFecha({estado,handle,style}:{estado:string,handle:(value:string) => void,style:React.CSSProperties}){
-    return <>
+import DatePicker, { registerLocale } from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { es } from 'date-fns/locale/es';
+
+export default function InputFecha({estado,handle,style,placeholder}:{estado:string,handle:(value:string) => void,style:React.CSSProperties,placeholder:string}){
+   registerLocale('es', es)
+
+   return <>
         <div style={style}>
-            <input type="datetime" name="" id="" />
+            <span style={{marginRight:"1em"}} className="contentLeftFormEmpleado">{placeholder}</span>
+            <DatePicker
+                selected={estado ? new Date(estado) :  new Date()}
+                onChange={(date) => handle(String(date))}
+                showTimeSelect
+                dateFormat="Pp"
+                locale="es"
+                placeholderText={placeholder}
+            />
         </div>
     </>
 }

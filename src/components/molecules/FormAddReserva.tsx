@@ -85,10 +85,10 @@ export default function FormAddReserva(){
                     </div>
                     <hr style={{margin:"1.5em auto"}} />
                     <div className="contentMainRowForm">
-                        <span className="contentLeftFormEmpleado">Fechas entrada - salida</span>
+                        <span className="contentLeftFormEmpleado">Fechas</span>
                         <div className="contentRightFormEmpleado">
-                            <InputFecha estado={checkIn} handle={setCheckIn} style={{width:"50%"}} />
-                            <InputFecha estado={checkOut} handle={setCheckOut} style={{width:"50%"}} />
+                            <InputFecha estado={checkIn} handle={setCheckIn} style={{width:"50%"}} placeholder="Check-In" />
+                            <InputFecha estado={checkOut} handle={setCheckOut} style={{width:"50%"}} placeholder="Check-Out" />
                         </div>
                     </div>
                     <hr style={{margin:"1.5em auto"}} />
@@ -109,7 +109,7 @@ export default function FormAddReserva(){
                     <div className="contentMainRowForm">
                         <span className="contentLeftFormEmpleado">Peticion</span>
                         <div className="contentRightFormEmpleado">
-                            <InputTextIcon estado={peticion ?? ""} handle={setPeticion} placeholder="telefono" Icon={FaExclamation} style={{width:"100%"}} value={loadDTO ? (loadDTO as Reserva).peticion ?? "" : ""} />
+                            <InputTextIcon estado={peticion ?? ""} handle={setPeticion} placeholder="Peticion del cliente" Icon={FaExclamation} style={{width:"100%"}} value={loadDTO ? (loadDTO as Reserva).peticion ?? "" : ""} />
                         </div>
                     </div>
                     <hr style={{margin:"1.5em auto"}} />

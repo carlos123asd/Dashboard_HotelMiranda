@@ -175,3 +175,6 @@
     overflow: hidden;
     border-radius: 1em;
 }
+.react-datepicker__day--selected{
+    background-color: #1F1F21 !important;
+}
