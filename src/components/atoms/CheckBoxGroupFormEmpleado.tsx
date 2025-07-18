@@ -148,7 +148,7 @@ export default function CheckBoxGroupFormEmpleado({estado,handle,listOption,valu
                         <span style={{marginRight:"1em",width:"max-content"}} className="contentLeftFormEmpleado">Nivel ADM (1-3)</span>
                         <div>
                             <label style={{fontSize:".9rem"}} className="contentLeftFormEmpleado" htmlFor="crearADM">crear</label>
-                            <input onChange={(e:React.ChangeEvent<HTMLInputElement>) => e.target.checked ? setNivelADM(switchNivelToValue("crear")) : null} style={{marginRight:"1em"}} type="radio" name="nivelADMADM" id="crearADM" checked={value ? value.some(permiso => permiso.nivel === 1) : false} />
+                            <input onChange={(e:React.ChangeEvent<HTMLInputElement>) => e.target.checked ? setNivelADM(switchNivelToValue("crear")) : null} style={{marginRight:"1em"}} type="radio" name="nivelADM" id="crearADM" checked={value ? value.some(permiso => permiso.nivel === 1) : false} />
                             <label style={{fontSize:".9rem"}} className="contentLeftFormEmpleado" htmlFor="modificarADM">modificar</label>
                             <input onChange={(e:React.ChangeEvent<HTMLInputElement>) => e.target.checked ? setNivelADM(switchNivelToValue("modificar")) : null} style={{marginRight:"1em"}} type="radio" name="nivelADM" id="modificarADM" checked={value ? value.some(permiso => permiso.nivel === 2) : false} />
                             <label style={{fontSize:".9rem"}} className="contentLeftFormEmpleado" htmlFor="eliminarADM">eliminar</label>

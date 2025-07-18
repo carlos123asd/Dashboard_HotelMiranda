@@ -13,7 +13,6 @@ import type { IHabitacion } from "../../types/Habitacion.type";
 
 export default function ActionsTable({dto,nombre}:{dto:object,nombre:string}){
     const {setTypeForm,setShowModal,setEdit,setLoadDTO} = useModal()
-    console.log(dto)
     const handleEdit = () => {
         switch(nombre){
             case "empleados": setTypeForm("empleados");setShowModal(true);setEdit(true);setLoadDTO(dto);break;

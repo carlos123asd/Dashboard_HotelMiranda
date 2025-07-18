@@ -3,12 +3,25 @@ import type { IHabitacion } from "../../types/Habitacion.type";
 import type { IServicio } from "../../types/Servicio.type";
 
 type ListCheckBoxProps<T> = {
-    handle: (value: T) => void;
+    estado: T[];
+    handle: (value: T[]) => void;
     value: T[];
     tipo: string;
 };
 
-export default function ListCheckBox<T>({handle,value,tipo}: ListCheckBoxProps<T>){
+export default function ListCheckBox<T>({estado,handle,value,tipo}: ListCheckBoxProps<T>){
+
+    const handleCheckChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const checkedValue = e.currentTarget.value;
+        const isChecked = e.target.checked;
+
+        if (isChecked) {
+            handle([...estado, checkedValue as unknown as T]);
+        } else {
+            handle(estado.filter((item) => String(item) !== checkedValue));
+        }
+    }
+
     return <>
         <div className="contentMainList">
             <table className="table">
@@ -40,7 +53,15 @@ export default function ListCheckBox<T>({handle,value,tipo}: ListCheckBoxProps<T
                         tipo === "clientes" && (value as ICliente[]).map((cliente, index) => (
                             <tr key={index}>
                                 <td style={{padding: "1em 0"}}>
-                                    <input style={{marginLeft:"1em"}} type="radio" name="asignacion" id={`asignacion${index}`} />
+                                    <input
+                                    value={cliente.id}
+                                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                                        if (e.target.checked) {
+                                            handle([cliente as unknown as T]);
+                                        }
+                                    }}
+                                    name="clientes" id="clientes"
+                                    style={{marginLeft:"1em"}} type="radio" />
                                 </td>
                                 <td style={{padding: "1em 0"}}>
                                     <span>{cliente.nombre}</span>
@@ -61,7 +82,13 @@ export default function ListCheckBox<T>({handle,value,tipo}: ListCheckBoxProps<T
                         (tipo === "habitaciones" && value) && (value as IHabitacion[]).map((habitacion, index) => (
                             <tr key={index}>
                                 <td style={{padding: "1em 0"}}>
-                                    <input style={{marginLeft:"1em"}} type="checkbox" name="" id={`habitacion${index}`} />
+                                    <input 
+                                    style={{marginLeft:"1em"}} 
+                                    type="checkbox" 
+                                    value={habitacion.id} 
+                                    name={habitacion.nombre} 
+                                    id={habitacion.id}
+                                    onChange={handleCheckChange} />
                                 </td>
                                 <td style={{padding: "1em 0",display:"flex",alignItems:"center",gap:"1em"}}>
                                     <img className="photoPerfil" src={undefined} alt="" />
@@ -86,7 +113,13 @@ export default function ListCheckBox<T>({handle,value,tipo}: ListCheckBoxProps<T
                         (tipo === "extras" && value) && (value as IServicio[]).map((extra, index) => (
                             <tr key={index}>
                                 <td style={{padding: "1em 0"}}>
-                                    <input style={{marginLeft:"1em"}} type="checkbox" name="" id={`extra${index}`} />
+                                    <input
+                                    style={{marginLeft:"1em"}} 
+                                    type="checkbox"
+                                    value={extra._id} 
+                                    name={extra.nombre} 
+                                    id={extra._id}
+                                    onChange={handleCheckChange} />
                                 </td>
                                 <td style={{padding: "1em 0",display:"flex",alignItems:"center",gap:"1em"}}>
                                     <img className="photoPerfil" src={extra.imagen} alt="" />

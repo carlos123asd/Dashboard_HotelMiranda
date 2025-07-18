@@ -28,8 +28,8 @@ export default function FormAddReserva(){
     const {edit,loadDTO} = useModal()
     const [totalReserva,setTotalReserva] = useState<EstadoReserva>("aceptada")
     const [estado,setEstado] = useState<EstadoReserva>("aceptada")
-    const [asignacion,setAsignacion] = useState<ICliente>({} as ICliente)
-    const [habitacion,setHabitacion] = useState<IHabitacion>({} as IHabitacion)
+    const [asignacion,setAsignacion] = useState<ICliente[]>([])
+    const [habitacion,setHabitacion] = useState<IHabitacion[]>([])
     const [checkIn,setCheckIn] = useState<string>("")
     const [checkOut,setCheckOut] = useState<string>("")
     const [peticion,setPeticion] = useState<string |null>("")
@@ -39,8 +39,8 @@ export default function FormAddReserva(){
     useEffect(() => {
         if(loadDTO){
             setEstado((loadDTO as Reserva).estado)
-            setAsignacion((loadDTO as Reserva).asignacion)
-            setHabitacion((loadDTO as Reserva).habitacion)
+            setAsignacion([(loadDTO as Reserva).asignacion])
+            setHabitacion([(loadDTO as Reserva).habitacion])
             setCheckIn((loadDTO as Reserva).checkIn)
             setCheckOut((loadDTO as Reserva).checkOut)
             setPeticion((loadDTO as Reserva).peticion ?? null)
@@ -64,7 +64,6 @@ export default function FormAddReserva(){
                         .map((reserva: Reserva) => [reserva.habitacion.id, reserva.habitacion])
                 ).values()
             ];
-            console.log("AQUIII",habitacionesDisponibles)
             setHabitaciones(habitacionesDisponibles as IHabitacion[])
         }
     },[checkIn,checkOut])
@@ -92,8 +91,8 @@ export default function FormAddReserva(){
             </div>
             <div className="bodyDocEmpleado">
                 <div className="contentNamePerfil">
-                    <h2>{loadDTO ? (loadDTO as Reserva).asignacion.nombre : asignacion.nombre}</h2>
-                    <span>{loadDTO ? (loadDTO as Reserva).asignacion.email : asignacion.email}</span>
+                    <h2>{loadDTO ? (loadDTO as Reserva).asignacion.nombre : asignacion[0]?.nombre}</h2>
+                    <span>{loadDTO ? (loadDTO as Reserva).asignacion.email : asignacion[0]?.email}</span>
                 </div>
                 <hr style={{margin:"1.5em auto"}} />
                 <div className="contentMainRowForm">
@@ -107,7 +106,7 @@ export default function FormAddReserva(){
                 <span style={{display:"block",marginBottom:"1em"}} className="contentLeftFormEmpleado">Clientes</span>
                 <div style={{flexDirection:"column",maxHeight:"350px",overflowY:"auto"}} className="contentMainRowForm">
                     <div>
-                        <ListCheckBox handle={setAsignacion} value={clientes} tipo="clientes" />
+                        <ListCheckBox estado={asignacion} handle={setAsignacion} value={clientes} tipo="clientes" />
                     </div>
                 </div>
                 <hr style={{margin:"1.5em auto"}} />
@@ -117,7 +116,7 @@ export default function FormAddReserva(){
                     (!checkIn && !checkOut) ?
                     <span style={{color: "#555555"}}>Seleccione Fechas de entrada y de salida</span> :
                     <div>
-                        <ListCheckBox handle={setHabitaciones} value={habitaciones as []} tipo="habitaciones" />
+                        <ListCheckBox estado={habitaciones} handle={setHabitaciones} value={habitaciones as []} tipo="habitaciones" />
                     </div>
                     }
                 </div>
@@ -132,7 +131,7 @@ export default function FormAddReserva(){
                 <div style={{flexDirection:"column",maxHeight:"350px",overflowY:"auto"}} className="contentMainRowForm">
                     <span style={{display:"block",marginBottom:"1em"}} className="contentLeftFormEmpleado">Extras</span>
                     <div style={{width:"100%"}} className="contentRightFormEmpleado">
-                        <ListCheckBox handle={setExtra} value={servicios as []} tipo="extras"/>
+                        <ListCheckBox estado={extra ?? []} handle={setExtra} value={servicios} tipo="extras"/>
                     </div>
                 </div>
                 <hr style={{margin:"1.5em auto"}} />
