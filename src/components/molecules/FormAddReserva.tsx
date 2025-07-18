@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { useModal } from "../../hooks/hookModal"
-import type { EstadoReserva, Extras, Reserva } from "../../types/Reserva.type"
+import type { EstadoReserva, Reserva } from "../../types/Reserva.type"
 import type { Notas } from "../../types/Notas.type"
 import InputTextIcon from "../atoms/InputTextIcon"
 import SelectForm from "../atoms/SelectForm"
@@ -13,13 +13,17 @@ import InputFecha from "../atoms/InputFecha"
 import { FaExclamation } from "react-icons/fa";
 import { useSelector } from "react-redux"
 import type { RootState } from "../../features/store/store"
+import type { IServicio } from "../../types/Servicio.type"
 
 export default function FormAddReserva(){
-    const [clientes,setClientes] = useState([])
-    const [habitaciones,setHabitaciones] = useState([])
+    const [clientes,setClientes] = useState<ICliente[]>([])
+    const [habitaciones,setHabitaciones] = useState<IHabitacion[]>([])
+    const [servicios,setServicios] = useState<IServicio[]>([])
 
     const {statusCliente,dataCliente} = useSelector((state: RootState) => state.clientes)
     const {statusHabitaciones,dataHabitaciones} = useSelector((state: RootState) => state.habitaciones)
+    const {statusServicios,dataServicios} = useSelector((state: RootState) => state.servicios)
+    const {data} = useSelector((state: RootState) => state.reservas)
 
     const {edit,loadDTO} = useModal()
     const [totalReserva,setTotalReserva] = useState<EstadoReserva>("aceptada")
@@ -29,7 +33,7 @@ export default function FormAddReserva(){
     const [checkIn,setCheckIn] = useState<string>("")
     const [checkOut,setCheckOut] = useState<string>("")
     const [peticion,setPeticion] = useState<string |null>("")
-    const [extra,setExtra] = useState<Extras[] | null>([])
+    const [extra,setExtra] = useState<IServicio[] | null>([])
     const [nota,setNota] = useState<Notas[] | null>([])
     
     useEffect(() => {
@@ -46,13 +50,36 @@ export default function FormAddReserva(){
     },[])
 
     useEffect(() => {
+        if(checkIn && checkOut){
+            const fechaCheckIn = new Date(checkIn)
+            const fechaCheckOut = new Date(checkOut)
+            const habitacionesDisponibles = [
+                ...new Map(
+                    data
+                        .filter((reserva: Reserva) => {
+                            const checkInReserva = new Date(reserva.checkIn);
+                            const checkOutReserva = new Date(reserva.checkOut);
+                            return !(checkInReserva < fechaCheckIn && checkOutReserva > fechaCheckOut);
+                        })
+                        .map((reserva: Reserva) => [reserva.habitacion.id, reserva.habitacion])
+                ).values()
+            ];
+            console.log("AQUIII",habitacionesDisponibles)
+            setHabitaciones(habitacionesDisponibles as IHabitacion[])
+        }
+    },[checkIn,checkOut])
+
+    useEffect(() => {
         if(statusCliente === "fulfilled"){
             setClientes(dataCliente)
         }
         if(statusHabitaciones === "fulfilled"){
             setHabitaciones(dataHabitaciones)
         }
-    },[dataCliente,dataHabitaciones])
+        if(statusServicios === "fulfilled"){
+            setServicios(dataServicios)
+        }
+    },[statusCliente,statusHabitaciones,dataCliente,dataHabitaciones,statusServicios,dataServicios])
 
     return <>
         <div className="FormAddDocEmpleado">
@@ -77,18 +104,22 @@ export default function FormAddReserva(){
                     </div>
                 </div>
                 <hr style={{margin:"1.5em auto"}} />
-                <span style={{display:"block",marginBottom:"1em"}} className="contentLeftFormEmpleado">Cliente</span>
+                <span style={{display:"block",marginBottom:"1em"}} className="contentLeftFormEmpleado">Clientes</span>
                 <div style={{flexDirection:"column",maxHeight:"350px",overflowY:"auto"}} className="contentMainRowForm">
                     <div>
-                        <ListCheckBox estado={asignacion} handle={setAsignacion} value={clientes} tipo="clientes" />
+                        <ListCheckBox handle={setAsignacion} value={clientes} tipo="clientes" />
                     </div>
                 </div>
                 <hr style={{margin:"1.5em auto"}} />
-                <span style={{display:"block",marginBottom:"1em"}} className="contentLeftFormEmpleado">Habitacion</span>
+                <span style={{display:"block",marginBottom:"1em"}} className="contentLeftFormEmpleado">Habitaciones Disponibles</span>
                 <div style={{flexDirection:"column",maxHeight:"350px",overflowY:"auto"}} className="contentMainRowForm">
+                    {
+                    (!checkIn && !checkOut) ?
+                    <span style={{color: "#555555"}}>Seleccione Fechas de entrada y de salida</span> :
                     <div>
-                        <ListCheckBox estado={habitacion} handle={setHabitacion} value={habitaciones} tipo="habitaciones" />
+                        <ListCheckBox handle={setHabitaciones} value={habitaciones as []} tipo="habitaciones" />
                     </div>
+                    }
                 </div>
                 <hr style={{margin:"1.5em auto"}} />
                 <div className="contentMainRowForm">
@@ -98,10 +129,10 @@ export default function FormAddReserva(){
                     </div>
                 </div>
                 <hr style={{margin:"1.5em auto"}} />
-                <div className="contentMainRowForm">
-                    <span className="contentLeftFormEmpleado">Extras</span>
-                    <div className="contentRightFormEmpleado">
-                        <ListCheckBox estado={extra} handle={setExtra} value={[]} tipo="extras"/> {/*TRAER UN THUNK para traer los extras que hay*/}
+                <div style={{flexDirection:"column",maxHeight:"350px",overflowY:"auto"}} className="contentMainRowForm">
+                    <span style={{display:"block",marginBottom:"1em"}} className="contentLeftFormEmpleado">Extras</span>
+                    <div style={{width:"100%"}} className="contentRightFormEmpleado">
+                        <ListCheckBox handle={setExtra} value={servicios as []} tipo="extras"/>
                     </div>
                 </div>
                 <hr style={{margin:"1.5em auto"}} />

@@ -6,6 +6,7 @@ import { DocsReservasSlice } from "../slices/DocsReservasSlice";
 import { DocsNotasSlice } from "../slices/DocsNotasSlice";
 import { DocsHabitacionesSlice } from "../slices/DocsHabitacionesSlice";
 import { DocsClientesSlice } from "../slices/DocsClientesSlice";
+import { DocsServiciosSlice } from "../slices/DocsServiciosSlice";
 
 export const store = configureStore({
     reducer: {
@@ -13,7 +14,8 @@ export const store = configureStore({
         reservas: DocsReservasSlice.reducer,
         notas: DocsNotasSlice.reducer,
         habitaciones: DocsHabitacionesSlice.reducer,
-        clientes: DocsClientesSlice.reducer
+        clientes: DocsClientesSlice.reducer,
+        servicios: DocsServiciosSlice.reducer
     }
 })
 
