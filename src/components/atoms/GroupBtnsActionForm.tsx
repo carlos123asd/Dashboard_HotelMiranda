@@ -7,6 +7,7 @@ import { putDocHabitacion } from "../../features/thunks/putDocHabitacion";
 import { putDocNota } from "../../features/thunks/putDocNota";
 import { putDocReserva } from "../../features/thunks/putDocReserva";
 import { useModal } from "../../hooks/hookModal";
+import type { DTOReseva } from "../../types/DTOReserva.type";
 import type { empleado } from "../../types/Empleado.type";
 import type { IHabitacion } from "../../types/Habitacion.type";
 import type { Notas } from "../../types/Notas.type";
@@ -43,8 +44,21 @@ export default function GroupBtnsActionForm({dto,type,recargo}:{dto:object,type:
                 }
                 break;
             case "reserva": 
-                if (ValidacionReserva(dto as Reserva, recargo)) {
-                    postAddDocReserva(PrepararDTOReservaFinal(dto as Reserva, recargo));
+                if (ValidacionReserva(dto as DTOReseva, recargo)) {
+                    const dtoFinal = PrepararDTOReservaFinal(dto as DTOReseva, recargo)
+                    if(dtoFinal.reserva.idHabitacion.length !== 1){
+                        for (const habitacion of dtoFinal.reserva.idHabitacion) {
+                            postAddDocReserva({
+                                ...dtoFinal,
+                                "reserva":{
+                                    ...dtoFinal.reserva,
+                                    idHabitacion: habitacion
+                                }
+                            })
+                        }
+                    }else{
+                        postAddDocReserva(dtoFinal);
+                    }
                 }else{
                     console.log("DTO RESERVA INVALIDO CREAR TOAST")
                 }
@@ -77,7 +91,7 @@ export default function GroupBtnsActionForm({dto,type,recargo}:{dto:object,type:
                 }
                 break;
             case "reserva": 
-                if (ValidacionReserva(dto as Reserva, recargo)) {
+                if (ValidacionReserva(dto as DTOReseva, recargo)) {
                     putDocReserva(PrepararDTOModReservaFinal(dto as Reserva));
                 }else{
                     console.log("DTO RESERVA INVALIDO CREAR TOAST")

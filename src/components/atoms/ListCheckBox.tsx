@@ -116,9 +116,9 @@ export default function ListCheckBox<T>({estado,handle,value,tipo}: ListCheckBox
                                     <input
                                     style={{marginLeft:"1em"}} 
                                     type="checkbox"
-                                    value={extra._id} 
+                                    value={extra.id} 
                                     name={extra.nombre} 
-                                    id={extra._id}
+                                    id={extra.id}
                                     onChange={handleCheckChange} />
                                 </td>
                                 <td style={{padding: "1em 0",display:"flex",alignItems:"center",gap:"1em"}}>

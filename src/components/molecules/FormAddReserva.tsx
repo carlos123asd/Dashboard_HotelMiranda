@@ -14,6 +14,7 @@ import { FaExclamation } from "react-icons/fa";
 import { useSelector } from "react-redux"
 import type { RootState } from "../../features/store/store"
 import type { IServicio } from "../../types/Servicio.type"
+import InputText from "../atoms/InputText"
 
 export default function FormAddReserva(){
     const [clientes,setClientes] = useState<ICliente[]>([])
@@ -30,11 +31,12 @@ export default function FormAddReserva(){
     const [estado,setEstado] = useState<EstadoReserva>("aceptada")
     const [asignacion,setAsignacion] = useState<ICliente[]>([])
     const [habitacion,setHabitacion] = useState<IHabitacion[]>([])
-    const [checkIn,setCheckIn] = useState<string>("")
-    const [checkOut,setCheckOut] = useState<string>("")
+    const [checkIn,setCheckIn] = useState("")
+    const [checkOut,setCheckOut] = useState("")
     const [peticion,setPeticion] = useState<string |null>("")
     const [extra,setExtra] = useState<IServicio[] | null>([])
     const [nota,setNota] = useState<Notas[] | null>([])
+    const [recarga,setRecarga] = useState<string>("")
     
     useEffect(() => {
         if(loadDTO){
@@ -116,7 +118,7 @@ export default function FormAddReserva(){
                     (!checkIn && !checkOut) ?
                     <span style={{color: "#555555"}}>Seleccione Fechas de entrada y de salida</span> :
                     <div>
-                        <ListCheckBox estado={habitaciones} handle={setHabitaciones} value={habitaciones as []} tipo="habitaciones" />
+                        <ListCheckBox estado={habitacion} handle={setHabitacion} value={habitaciones as []} tipo="habitaciones" />
                     </div>
                     }
                 </div>
@@ -135,7 +137,14 @@ export default function FormAddReserva(){
                     </div>
                 </div>
                 <hr style={{margin:"1.5em auto"}} />
+                {!edit && <div className="contentMainRowForm">
+                    <span className="contentLeftFormEmpleado">Recarga(€)</span>
+                    <div className="contentRightFormEmpleado">
+                        <InputText estado={recarga ? recarga :  ""} handle={setRecarga} placeholder="recarga" style={{width:"100%"}} />
+                    </div>
+                </div>}
                 {edit && <div className="contentMainRowForm">
+                    <hr style={{margin:"1.5em auto"}} />
                     <div style={{display:"flex", width:"50%"}}>
                         <span className="contentLeftFormEmpleado">Estado</span>
                         <SelectForm handle={setEstado as (value:string) => void} items={["cancelada","en curso"]} value={loadDTO ? (loadDTO as Reserva).estado : undefined} />
@@ -158,14 +167,14 @@ export default function FormAddReserva(){
                 } :
                 {
                     estado: estado,
-                    asignacion: asignacion,
-                    habitacion: habitacion,
+                    idCliente: asignacion.length > 0 ? asignacion[0].id : [],
+                    idHabitacion: habitacion,
                     checkIn: checkIn,
                     checkOut: checkOut,
                     extras: extra,
                     notasInternas: nota,
                     peticion: peticion
-                }} type="empleado" />
+                }} recargo={!loadDTO ? Number(recarga) : 0} type="reserva" />
             </div>
         </div>
     </>
