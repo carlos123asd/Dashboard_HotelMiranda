@@ -17,6 +17,7 @@ export const PrepararDTOReservaFinal = (dto:DTOReseva,recargo?:number) => {
 }
 
 export const PrepararDTOModReservaFinal = (dto:Reserva) => {
+    console.log(dto)
     const dtoReservaFinal = {
         "reserva":{
             ...dto

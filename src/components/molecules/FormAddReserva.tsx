@@ -70,17 +70,7 @@ export default function FormAddReserva(){
         }
     },[checkIn,checkOut])
 
-    useEffect(() => {
-        if(statusCliente === "fulfilled"){
-            setClientes(dataCliente)
-        }
-        if(statusHabitaciones === "fulfilled"){
-            setHabitaciones(dataHabitaciones)
-        }
-        if(statusServicios === "fulfilled"){
-            setServicios(dataServicios)
-        }
-    },[statusCliente,statusHabitaciones,dataCliente,dataHabitaciones,statusServicios,dataServicios])
+   
 
     return <>
         <div className="FormAddDocEmpleado">

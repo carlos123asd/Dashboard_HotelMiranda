@@ -1,8 +1,9 @@
+import type { DepsReserva } from "../../types/DepsReserva";
 import type { Reserva } from "../../types/Reserva.type";
 import CheckBoxTable from "../atoms/CheckBoxTable";
 import ActionsTable from "./ActionsTable";
 
-export default function TBodyReservas({docs,actual,checkGlobal,handleCountChecked}:{docs:Array<Reserva>,actual:number,checkGlobal:boolean,handleCountChecked:(value:number) => void}){
+export default function TBodyReservas({docs,actual,checkGlobal,handleCountChecked,depExtra}:{docs:Array<Reserva>,actual:number,checkGlobal:boolean,handleCountChecked:(value:number) => void,depExtra?:DepsReserva}){
     const handleStatusStyle = (value:string) => {
         switch(value){
             case 'aceptada': return 'statusEmpleadoActivo';
@@ -41,7 +42,7 @@ export default function TBodyReservas({docs,actual,checkGlobal,handleCountChecke
                         <div className={`tagStatusEmpleadoTable ${handleStatusStyle(registro.estado)}`}>{registro.estado}</div>
                     </td>
                     <td>
-                        <ActionsTable dto={registro} nombre="reservas" />
+                        <ActionsTable dto={registro} nombre="reservas" depExtra={depExtra} />
                     </td>
                 </tr>
             ))}

@@ -13,16 +13,23 @@ import { getDocsReservaTable } from "../features/thunks/getDocsReservaTable";
 import { getDocsCliente } from "../features/thunks/getDocsCliente";
 import { getDocsHabitacionTable } from "../features/thunks/getDocsHabitacionTable";
 import { getDocsServicio } from "../features/thunks/getDocsServicio";
+import type { ICliente } from "../types/Cliente.type";
+import type { IHabitacion } from "../types/Habitacion.type";
+import type { IServicio } from "../types/Servicio.type";
+import type { DepsReserva } from "../types/DepsReserva";
 
 export default function Reservas(){
     const [docs,setDocs] = useState<Reserva[]>([])
+    const [extraClientes, setExtraClientes] = useState<ICliente[]>([])
+    const [extraHabitaciones, setExtraHabitaciones] = useState<IHabitacion[]>([])
+    const [extraServicios, setExtraServicios] = useState<IServicio[]>([])
     
     const {menuActive,setMenuActive} = useMenuTable()
 
     const {data,status} = useSelector((state: RootState) => state.reservas)
-    const {statusCliente} = useSelector((state: RootState) => state.clientes)
-    const {statusHabitaciones} = useSelector((state: RootState) => state.habitaciones)
-    const {statusServicios} = useSelector((state: RootState) => state.servicios)
+    const {dataCliente,statusCliente} = useSelector((state: RootState) => state.clientes)
+    const {dataHabitaciones,statusHabitaciones} = useSelector((state: RootState) => state.habitaciones)
+    const {dataServicios,statusServicios} = useSelector((state: RootState) => state.servicios)
 
     const dispatch = useDispatch<AppDispatch>()
 
@@ -60,7 +67,7 @@ export default function Reservas(){
         }else if(statusCliente === "pending"){
             console.log("Cargando Clientes")
         }else if(statusCliente === "fulfilled"){
-            console.log("Cargado Clientes")
+            setExtraClientes(dataCliente)
         }else if(statusCliente === "rejected" && statusHabitaciones === "rejected"){
             throw new Error ("Error al cargar los datos Cliente para formulario Reserva")
         }
@@ -70,7 +77,7 @@ export default function Reservas(){
         }else if(statusHabitaciones === "pending"){
             console.log("Cargando Reservas")
         }else if(statusHabitaciones === "fulfilled"){
-             console.log("Cargado Reservas")
+            setExtraHabitaciones(dataHabitaciones)
         }else if(statusHabitaciones === "rejected"){
             throw new Error ("Error al cargar los datos Habitaciones para formulario Reserva")
         }
@@ -90,7 +97,7 @@ export default function Reservas(){
         }else if(statusServicios === "pending"){
             console.log("Cargando Servicios")
         }else if(statusServicios === "fulfilled"){
-           console.log("Servicios cargado")
+           setExtraServicios(dataServicios)
         }else if(statusServicios === "rejected"){
             throw new Error ("Error al cargar los datos de Sevicios")
         }
@@ -110,7 +117,17 @@ export default function Reservas(){
                 </div>
             </div>
             <StatusTable status={statusReserva} />
-            <Table menu={menuReserva} headers={headerReserva} setDocs={setDocs} docs={docs}/>
+            <Table 
+            menu={menuReserva} 
+            headers={headerReserva} 
+            setDocs={setDocs} 
+            docs={docs} 
+            depExtra={{
+                clientes: extraClientes,
+                habitaciones: extraHabitaciones,
+                sevicios: extraServicios
+            } as DepsReserva} 
+            />
         </DashboardTemplate>
     </>
 }

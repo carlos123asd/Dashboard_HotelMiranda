@@ -61,7 +61,9 @@ export default function ListCheckBox<T>({estado,handle,value,tipo}: ListCheckBox
                                         }
                                     }}
                                     name="clientes" id="clientes"
-                                    style={{marginLeft:"1em"}} type="radio" />
+                                    style={{marginLeft:"1em"}} type="radio"
+                                    checked={cliente.id === (value as ICliente[])[0].id  ? true : false}
+                                    />
                                 </td>
                                 <td style={{padding: "1em 0"}}>
                                     <span>{cliente.nombre}</span>
@@ -84,11 +86,15 @@ export default function ListCheckBox<T>({estado,handle,value,tipo}: ListCheckBox
                                 <td style={{padding: "1em 0"}}>
                                     <input 
                                     style={{marginLeft:"1em"}} 
-                                    type="checkbox" 
+                                    type={value.length === 1 ? "radio"  : "checkbox"} 
                                     value={habitacion.id} 
                                     name={habitacion.nombre} 
                                     id={habitacion.id}
-                                    onChange={handleCheckChange} />
+                                    onChange={handleCheckChange}
+                                    checked={
+                                        (value as IHabitacion[])[0].id === habitacion.id ? true : false
+                                    }
+                                    />
                                 </td>
                                 <td style={{padding: "1em 0",display:"flex",alignItems:"center",gap:"1em"}}>
                                     <img className="photoPerfil" src={undefined} alt="" />

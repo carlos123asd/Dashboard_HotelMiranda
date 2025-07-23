@@ -15,8 +15,9 @@ import TBodyNotas from "../molecules/TBodyNotas";
 import THeadHabitacion from "../molecules/THeadHabitacion";
 import type { IHabitacion } from "../../types/Habitacion.type";
 import TBodyHabitacion from "../molecules/TBodyHabitacion";
+import type { DepsReserva } from "../../types/DepsReserva";
 
-export default function Table({menu,headers,setDocs,docs}:{menu?:Array<string>,headers:Array<string>,setDocs:(docsFilters:[])=>void,docs:Array<unknown>}){
+export default function Table({menu,headers,setDocs,docs,depExtra}:{menu?:Array<string>,headers:Array<string>,setDocs:(docsFilters:[])=>void,docs:Array<unknown>,depExtra?:DepsReserva}){
     const location = useLocation();
     const [actual,setActual] = useState<number>(10)
     const [checkedGlobal,setCheckedGlobal] = useState<boolean>(false)
@@ -71,7 +72,7 @@ export default function Table({menu,headers,setDocs,docs}:{menu?:Array<string>,h
                     </tr>
                 </thead>
                 {location.pathname === '/empleados' && <TBodyEmpleados docs={docs as empleado[]} actual={actual} checkGlobal={checkedGlobal} handleCountChecked={handleCountChecked} />}
-                {location.pathname === '/reservas' && <TBodyReservas docs={docs as Reserva[]} actual={actual} checkGlobal={checkedGlobal} handleCountChecked={handleCountChecked} />}
+                {location.pathname === '/reservas' && <TBodyReservas docs={docs as Reserva[]} actual={actual} checkGlobal={checkedGlobal} handleCountChecked={handleCountChecked} depExtra={depExtra} />}
                 {location.pathname === '/notas' && <TBodyNotas docs={docs as Notas[]} actual={actual} checkGlobal={checkedGlobal} handleCountChecked={handleCountChecked} />}
                 {location.pathname === '/habitaciones' && <TBodyHabitacion docs={docs as IHabitacion[]} actual={actual} checkGlobal={checkedGlobal} handleCountChecked={handleCountChecked} />}
             </table>

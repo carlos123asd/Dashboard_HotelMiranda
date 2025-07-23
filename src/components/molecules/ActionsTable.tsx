@@ -10,13 +10,14 @@ import type { empleado } from "../../types/Empleado.type";
 import type { Reserva } from "../../types/Reserva.type";
 import type { Notas } from "../../types/Notas.type";
 import type { IHabitacion } from "../../types/Habitacion.type";
+import type { DepsReserva } from "../../types/DepsReserva";
 
-export default function ActionsTable({dto,nombre}:{dto:object,nombre:string}){
+export default function ActionsTable({dto,nombre,depExtra}:{dto:object,nombre:string,depExtra?:DepsReserva}){
     const {setTypeForm,setShowModal,setEdit,setLoadDTO} = useModal()
     const handleEdit = () => {
         switch(nombre){
             case "empleados": setTypeForm("empleados");setShowModal(true);setEdit(true);setLoadDTO(dto);break;
-            case "reservas": setTypeForm("reservas");setShowModal(true);setEdit(true);setLoadDTO(dto);break;
+            case "reservas": setTypeForm("reservas");setShowModal(true);setEdit(true);setLoadDTO({dto:dto,depExtra:depExtra});break;
             case "notas": setTypeForm("notas");setShowModal(true);setEdit(true);setLoadDTO(dto);break;
             case "habitaciones": setTypeForm("habitaciones");setEdit(true);setEdit(true);setLoadDTO(dto);break;
             default: throw new Error("Opcion invalida para modal, ADD doc")
