@@ -123,9 +123,11 @@ export default function Reservas(){
             setDocs={setDocs} 
             docs={docs} 
             depExtra={{
-                clientes: extraClientes,
-                habitaciones: extraHabitaciones,
-                sevicios: extraServicios
+                depExtra: {
+                    clientes: extraClientes,
+                    habitaciones: extraHabitaciones,
+                    sevicios: extraServicios
+                }
             } as DepsReserva} 
             />
         </DashboardTemplate>

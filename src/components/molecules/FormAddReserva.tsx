@@ -11,22 +11,17 @@ import ListCheckBox from "../atoms/ListCheckBox"
 import GroupBtnsActionForm from "../atoms/GroupBtnsActionForm"
 import InputFecha from "../atoms/InputFecha"
 import { FaExclamation } from "react-icons/fa";
-import { useSelector } from "react-redux"
-import type { RootState } from "../../features/store/store"
 import type { IServicio } from "../../types/Servicio.type"
 import InputText from "../atoms/InputText"
+import type { DepsReserva } from "../../types/DepsReserva"
+import type { RootState } from "../../features/store/store"
+import { useSelector } from "react-redux"
 
 export default function FormAddReserva(){
-    const [clientes,setClientes] = useState<ICliente[]>([])
-    const [habitaciones,setHabitaciones] = useState<IHabitacion[]>([])
-    const [servicios,setServicios] = useState<IServicio[]>([])
-
-    const {statusCliente,dataCliente} = useSelector((state: RootState) => state.clientes)
-    const {statusHabitaciones,dataHabitaciones} = useSelector((state: RootState) => state.habitaciones)
-    const {statusServicios,dataServicios} = useSelector((state: RootState) => state.servicios)
-    const {data} = useSelector((state: RootState) => state.reservas)
-
     const {edit,loadDTO} = useModal()
+    const {data} = useSelector((state: RootState) => state.reservas)
+    const [habitaciones,setHabitaciones] = useState<IHabitacion[]>((loadDTO as DepsReserva).depExtra.habitaciones)
+
     const [totalReserva,setTotalReserva] = useState<EstadoReserva>("aceptada")
     const [estado,setEstado] = useState<EstadoReserva>("aceptada")
     const [asignacion,setAsignacion] = useState<ICliente[]>([])
@@ -40,14 +35,14 @@ export default function FormAddReserva(){
     
     useEffect(() => {
         if(loadDTO){
-            setEstado((loadDTO as Reserva).estado)
-            setAsignacion([(loadDTO as Reserva).asignacion])
-            setHabitacion([(loadDTO as Reserva).habitacion])
-            setCheckIn((loadDTO as Reserva).checkIn)
-            setCheckOut((loadDTO as Reserva).checkOut)
-            setPeticion((loadDTO as Reserva).peticion ?? null)
-            setExtra((loadDTO as Reserva).extras ?? null)
-            setNota((loadDTO as Reserva).notasInternas ?? null)
+            setEstado((loadDTO as DepsReserva).dto.estado)
+            setAsignacion([(loadDTO as DepsReserva).dto.asignacion])
+            setHabitacion([(loadDTO as DepsReserva).dto.habitacion])
+            setCheckIn((loadDTO as DepsReserva).dto.checkIn)
+            setCheckOut((loadDTO as DepsReserva).dto.checkOut)
+            setPeticion((loadDTO as DepsReserva).dto.peticion ?? null)
+            setExtra((loadDTO as DepsReserva).dto.extras ?? null)
+            setNota((loadDTO as DepsReserva).dto.notasInternas ?? null)
         }
     },[])
 
@@ -98,7 +93,7 @@ export default function FormAddReserva(){
                 <span style={{display:"block",marginBottom:"1em"}} className="contentLeftFormEmpleado">Clientes</span>
                 <div style={{flexDirection:"column",maxHeight:"350px",overflowY:"auto"}} className="contentMainRowForm">
                     <div>
-                        <ListCheckBox estado={asignacion} handle={setAsignacion} value={clientes} tipo="clientes" />
+                        <ListCheckBox estado={asignacion} handle={setAsignacion} value={(loadDTO as DepsReserva).depExtra.clientes} tipo="clientes" />
                     </div>
                 </div>
                 <hr style={{margin:"1.5em auto"}} />
@@ -123,7 +118,7 @@ export default function FormAddReserva(){
                 <div style={{flexDirection:"column",maxHeight:"350px",overflowY:"auto"}} className="contentMainRowForm">
                     <span style={{display:"block",marginBottom:"1em"}} className="contentLeftFormEmpleado">Extras</span>
                     <div style={{width:"100%"}} className="contentRightFormEmpleado">
-                        <ListCheckBox estado={extra ?? []} handle={setExtra} value={servicios} tipo="extras"/>
+                        <ListCheckBox estado={extra ?? []} handle={setExtra} value={(loadDTO as DepsReserva).depExtra.sevicios} tipo="extras"/>
                     </div>
                 </div>
                 <hr style={{margin:"1.5em auto"}} />
